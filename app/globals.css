@@ -1,157 +1,617 @@
-﻿@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* app/globals.css — Authentic Ghost of Tsushima Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 :root {
-  --background: 240 20% 4%;
-  --foreground: 220 14% 91%;
-  --card: 240 16% 8%;
-  --card-foreground: 220 14% 91%;
-  --popover: 240 16% 8%;
-  --popover-foreground: 220 14% 91%;
-  --primary: 262 83% 57%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 240 12% 14%;
-  --secondary-foreground: 220 14% 91%;
-  --muted: 240 10% 14%;
-  --muted-foreground: 220 9% 62%;
-  --accent: 188 86% 53%;
-  --accent-foreground: 0 0% 100%;
-  --destructive: 0 72% 51%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 240 9% 18%;
-  --input: 240 9% 18%;
-  --ring: 262 83% 57%;
-  --radius: 1rem;
+  --color-cream: #F5F0E8;
+  --color-ink: #0A1215;
+  --color-teal: #1C2B2F;
+  --color-red: #D12C28;
+  --color-amber: #C6A36B;
+  --color-parchment: #ECE8E1;
+  --font-body: 'Inter', sans-serif;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  html {
-    scroll-behavior: smooth;
-    color-scheme: dark;
-  }
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: var(--font-body);
+  background-color: var(--color-ink);
+  color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+}
 
-  body {
-    position: relative;
-    isolation: isolate;
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-anchor: none;
-    background: #080810;
-    color: #e5e7eb;
-    font-family: var(--font-inter), Inter, sans-serif;
-  }
+.hud {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
 
-  body::before,
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-  }
+.hud-interactive {
+  pointer-events: auto;
+}
 
-  body::before {
-    z-index: -2;
-    background:
-      radial-gradient(circle at 18% 12%, rgba(124, 58, 237, 0.16), transparent 24%),
-      radial-gradient(circle at 82% 16%, rgba(34, 211, 238, 0.1), transparent 18%),
-      radial-gradient(circle at 50% 42%, rgba(34, 211, 238, 0.14), transparent 18%),
-      linear-gradient(180deg, #020204 0%, #04050a 34%, #05060c 100%);
-  }
+/* Full-Screen Background Waving Motion */
+.bg-wave {
+  animation: backgroundWave 12s ease-in-out infinite;
+}
 
-  body::after {
-    z-index: -1;
-    background:
-      radial-gradient(circle at center, rgba(255, 255, 255, 0.03), transparent 45%),
-      linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.28) 100%);
+@keyframes backgroundWave {
+  0% {
+    transform: translateY(0px) scale(1.04);
   }
-
-  a {
-    @apply transition-colors;
+  50% {
+    transform: translateY(-12px) scale(1.04);
+  }
+  100% {
+    transform: translateY(0px) scale(1.04);
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Boot Sequence */
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-cream);
+  color: #1A1A18;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
 }
 
-.site-shell {
-  position: relative;
+.boot-emblem {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #1A1A18;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
 }
 
-.hero-scroll-shell {
-  --bg: transparent !important;
-  --text: #e5e7eb !important;
-  --muted: rgba(229, 231, 235, 0.78) !important;
-  --muted-bg: rgba(255, 255, 255, 0.07) !important;
-  --muted-border: rgba(255, 255, 255, 0.12) !important;
-  --overlay-bg: rgba(8, 8, 16, 0.58) !important;
-  --overlay-text: #ffffff !important;
-  --accent: #7c3aed !important;
-  --accent-2: #22d3ee !important;
-  --shadow: 0 24px 90px rgba(0, 0, 0, 0.45) !important;
+.boot-text {
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  text-align: center;
+  max-width: 600px;
+  padding: 0 1rem;
 }
 
-.hero-scroll-shell .hsv-container {
-  position: relative;
+.boot-next-tip {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  opacity: 0.5;
+  text-transform: uppercase;
+  margin-bottom: 4rem;
 }
 
-.hero-scroll-shell .hsv-container::before {
-  content: "";
+.boot-spinner-container {
   position: absolute;
-  inset: 16% 18%;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.18), transparent 70%);
-  filter: blur(36px);
-  z-index: -1;
+  bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.hero-scroll-shell .hsv-title {
-  text-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+.boot-spinner {
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(26, 26, 24, 0.1);
+  border-top-color: #1A1A18;
+  border-radius: 50%;
+  animation: spin 1.2s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
 }
 
-.hero-scroll-shell .hsv-subtitle {
+.boot-progress {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+}
+
+/* ── Ghost of Tsushima Title Screen Menu (Matching Reference 4) ── */
+
+.nav-header {
+  position: absolute;
+  top: 3.5rem;
+  left: 4.5rem;
+}
+
+.nav-name {
+  font-size: 0.85rem;
+  letter-spacing: 0.35em;
+  font-weight: 700;
+  color: rgba(245, 240, 232, 0.9);
+  text-transform: uppercase;
+}
+
+.nav-meta {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  opacity: 0.45;
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+}
+
+.nav-menu {
+  position: fixed;
+  left: 4.5rem;
+  top: 48%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.85rem;
+  align-items: flex-start;
+  z-index: 20;
+}
+
+.nav-item {
+  text-transform: uppercase;
   letter-spacing: 0.22em;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: rgba(245, 240, 232, 0.65);
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+  position: relative;
+  padding: 0.55rem 2.4rem 0.55rem 1.3rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 44px;
+  line-height: 1;
 }
 
-.hero-scroll-shell .hsv-overlay-content a:hover {
-  transform: translateY(-1px);
+.nav-item-text {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  line-height: 1;
 }
 
-.dock-shell {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+.nav-item:hover {
+  color: #0E1416;
 }
 
-@keyframes scroll-left {
-  from {
-    transform: translateX(0);
+.nav-item.active {
+  color: #0E1416 !important;
+}
+
+.nav-item.highlighted {
+  color: #0E1416 !important;
+}
+
+.nav-item.active .nav-item-text,
+.nav-item.highlighted .nav-item-text {
+  color: #0E1416 !important;
+  font-weight: 800;
+  text-shadow: none;
+}
+
+.nav-subtitle {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  opacity: 0.85;
+  margin-left: 0.8rem;
+  color: #1A2426;
+  font-weight: 700;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* ── Ghost of Tsushima COLLECTIONS / ABOUT / JOURNAL Overlay ── */
+
+.got-collections-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background-color: #EBE7E1;
+  background-image: radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(200,195,185,0.3) 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: #1A1816;
+}
+
+/* Top Black Navigation Bar */
+.got-collections-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3.5rem;
+  height: 52px;
+  background: #0C1012;
+  color: #F5F0E8;
+  border-bottom: 2px solid #1C2226;
+}
+
+.got-collections-tabs {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.got-collections-tab {
+  height: 100%;
+  padding: 0 1.8rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.6);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.got-collections-tab:hover {
+  color: #FFFFFF;
+}
+
+/* Active Top Tab: White Parchment Card */
+.got-collections-tab.active {
+  background: #EBE7E1 !important;
+  color: #121618 !important;
+  font-weight: 800;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+}
+
+.got-collections-tab.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #D12C28;
+}
+
+/* Main Collections / Journal Body */
+.got-collections-body {
+  flex: 1;
+  display: flex;
+  padding: 2.5rem 3.5rem;
+  gap: 3.5rem;
+  overflow-y: auto;
+}
+
+/* Force Embedded Iframe to Full Height */
+.got-collections-body iframe {
+  width: 100% !important;
+  max-width: 504px !important;
+  height: 876px !important;
+  min-height: 876px !important;
+  border: none !important;
+  display: block !important;
+}
+
+/* Journal Tales Left Sidebar */
+.got-journal-sidebar {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.got-journal-sidebar-header {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: #2C2722;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  padding-left: 0.5rem;
+}
+
+/* Tale Card in Journal Sidebar */
+.got-tale-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.4rem;
+  background: #FFFFFF;
+  border: 1px solid #C8C2B4;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.got-tale-card:hover {
+  border-color: #908B80;
+  transform: translateX(4px);
+}
+
+.got-tale-card-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #0F0E0C;
+}
+
+/* Active Tale Card: Solid Tsushima Red (#D12C28) with brush edge */
+.got-tale-card.active {
+  background: #D12C28 !important;
+  border-color: #D12C28 !important;
+  box-shadow: 0 4px 18px rgba(209, 44, 40, 0.35);
+}
+
+.got-tale-card.active .got-tale-card-title {
+  color: #FFFFFF !important;
+}
+
+.got-tale-card.active::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  background: #D12C28;
+  clip-path: polygon(0 0, 100% 15%, 80% 50%, 100% 85%, 0 100%);
+}
+
+/* Right Side: Selected Tale Content Area */
+.got-tale-content {
+  flex: 1;
+  max-width: 780px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+/* Left Sidebar Categories (for Projects) */
+.got-left-sidebar {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.got-left-card {
+  display: flex;
+  align-items: center;
+  padding: 1.1rem 1.4rem;
+  background: #FFFFFF;
+  border: 1px solid #D8D4CC;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.got-left-card:hover {
+  border-color: #A09B90;
+  transform: translateX(4px);
+}
+
+.got-left-card-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #24201C;
+}
+
+/* Active Left Sidebar Card */
+.got-left-card.active {
+  background: #D12C28 !important;
+  border-color: #D12C28 !important;
+  box-shadow: 0 4px 15px rgba(209, 44, 40, 0.35);
+}
+
+.got-left-card.active .got-left-card-label {
+  color: #FFFFFF !important;
+}
+
+.got-left-card.active::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  background: #D12C28;
+  clip-path: polygon(0 0, 100% 15%, 80% 50%, 100% 85%, 0 100%);
+}
+
+/* Right Side: Projects Cards Grid */
+.got-right-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: max-content;
+  gap: 1.8rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Authentic GoT Collection White Card */
+.got-project-card {
+  background: #FFFFFF;
+  border: 1px solid #D8D4CC;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.got-project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+  border-color: #B0A99C;
+}
+
+/* Red Tag in Top-Left Corner of Card */
+.got-project-card-red-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  background: #D12C28;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  z-index: 2;
+}
+
+.got-project-card-header {
+  padding: 1.2rem 1.4rem 0.8rem 1.4rem;
+}
+
+.got-project-card-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #1A1614;
+  margin-bottom: 0.3rem;
+}
+
+/* Card Artwork Image Container */
+.got-project-card-image-wrap {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  position: relative;
+  background: #E0DDD7;
+}
+
+.got-project-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(105%) brightness(95%);
+  transition: transform 0.5s ease;
+}
+
+.got-project-card:hover .got-project-card-image {
+  transform: scale(1.06);
+}
+
+/* Sound Toggle Button */
+.sound-toggle {
+  position: fixed;
+  bottom: 3rem;
+  left: 4.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: rgba(245, 240, 232, 0.65);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  z-index: 25;
+  box-shadow: none !important;
+}
+
+.sound-toggle:hover {
+  color: var(--color-cream);
+}
+
+.sound-text {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Bottom Bar */
+.got-collections-bottombar {
+  height: 48px;
+  background: #E3DFD7;
+  border-top: 1px solid #D0CBC0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #4A443C;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(160, 150, 135, 0.4);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(160, 150, 135, 0.7);
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes brushReveal {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .got-collections-body {
+    flex-direction: column;
+    padding: 1.5rem;
   }
-  to {
-    transform: translateX(-50%);
+  .got-left-sidebar, .got-journal-sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .got-right-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 }
-
-@keyframes scroll-right {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-.animate-scroll-left {
-  animation: scroll-left 30s linear infinite;
-}
-
-.animate-scroll-right {
-  animation: scroll-right 30s linear infinite;
-}
-
-

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { DestinationId } from '@/lib/types';
 import { destinations } from '@/lib/world-data';
@@ -18,6 +18,15 @@ export default function NavigationMenu({
 }: NavigationMenuProps) {
   // hoveredDestination: string | null. When null, defaults back to activeDestination.
   const [hoveredDestination, setHoveredDestination] = useState<DestinationId | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 80);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // The destination that currently gets the brushstroke banner
   const currentBannerId = hoveredDestination ?? activeDestination;
@@ -26,9 +35,10 @@ export default function NavigationMenu({
     <div
       className="hud-interactive"
       style={{
-        transition: 'opacity 0.5s ease',
-        opacity: isTransitioning ? 0.5 : 1,
-        pointerEvents: isTransitioning ? 'none' : 'auto'
+        transition: 'opacity 0.4s ease, transform 0.4s ease',
+        opacity: isTransitioning ? 0.5 : (isScrolled ? 0 : 1),
+        transform: isScrolled ? 'translateY(-12px)' : 'translateY(0)',
+        pointerEvents: (isTransitioning || isScrolled) ? 'none' : 'auto'
       }}
     >
       {/* Title Screen Top Header */}

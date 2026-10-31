@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import HUD from "@/components/hud/HUD";
 import InkIntro from "@/components/hud/InkIntro";
 import DLCIntro from "@/components/hud/DLCIntro";
-import { WorldCanvas } from "@/components/world/WorldCanvas";
+import CinematicEnvironment from "@/components/world/CinematicEnvironment";
 import {
   playTransitionAudio,
   startBackgroundAudio,
@@ -16,6 +16,15 @@ import {
   playDLCIntroAudio,
 } from "@/lib/audio-manager";
 import type { DestinationId, WorldState } from "@/lib/types";
+
+const sceneMap: Record<string, string> = {
+  origin: "scene-0",
+  about: "scene-1",
+  journey: "scene-2",
+  projects: "scene-3",
+  research: "scene-3",
+  contact: "scene-4",
+};
 
 export default function HomePage() {
   const [showMovieIntro, setShowMovieIntro] = useState(false);
@@ -96,13 +105,12 @@ export default function HomePage() {
 
   /* ── Solid Black Screen Transition Handler (Main Screen Switches Only) ── */
   const handleNavigate = useCallback(
-    (id: DestinationId) => {
-      if (worldState.isTransitioning || worldState.activeDestination === id) return;
-
-      playTransitionAudio();
+    (id: DestinationId, forceOverlay = false) => {
+      if (worldState.isTransitioning) return;
 
       // Special handling for DLC: pause bg music, show DLC cinematic intro
-      if (id === "dlc" && worldState.activeDestination === "origin") {
+      if (id === "dlc") {
+        playTransitionAudio();
         setIsFading(true);
         playDLCIntroAudio(true); // Trigger play immediately in the click stack trace
         setTimeout(() => {
@@ -112,6 +120,20 @@ export default function HomePage() {
         }, 450);
         return;
       }
+
+      // If user is on origin and clicked a nav item without forcing overlay, smooth scroll to scene!
+      if (!forceOverlay && worldState.activeDestination === "origin" && sceneMap[id]) {
+        const targetEl = document.getElementById(sceneMap[id]);
+        if (targetEl) {
+          playTransitionAudio();
+          targetEl.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+      }
+
+      if (worldState.activeDestination === id) return;
+
+      playTransitionAudio();
 
       // Blackout fade transition triggers ONLY when entering/exiting Main World (origin)
       const isMainScreenSwitch =
@@ -184,9 +206,9 @@ export default function HomePage() {
   return (
     <main
       style={{
-        position: "fixed",
-        inset: 0,
-        overflow: "hidden",
+        position: "relative",
+        width: "100%",
+        minHeight: "100vh",
         background: "#0A1215",
       }}
     >
@@ -200,19 +222,20 @@ export default function HomePage() {
         <DLCIntro onComplete={handleDLCIntroComplete} />
       )}
 
-      {/* 3. 3D World Scene */}
-      <WorldCanvas
-        destination={worldState.activeDestination}
-        isTransitioning={worldState.isTransitioning}
-        onTransitionComplete={handleTransitionComplete}
-        visible={!showMovieIntro && !showDLCIntro && worldState.phase !== "boot"}
-      />
+      {/* 3. Image-Based Cinematic Parallax Environment */}
+      {!showMovieIntro && !showDLCIntro && worldState.phase !== "boot" && (
+        <CinematicEnvironment
+          onNavigate={(id) => handleNavigate(id, true)}
+          onSelectProject={handleSelectProject}
+          activeDestination={worldState.activeDestination}
+        />
+      )}
 
       {/* 4. HUD UI Overlay (Includes Boot Loading Screen + Navigation) */}
       {!showMovieIntro && !showDLCIntro && (
         <HUD
           worldState={worldState}
-          onNavigate={handleNavigate}
+          onNavigate={(id) => handleNavigate(id, false)}
           onSelectProject={handleSelectProject}
           onToggleSound={handleToggleSound}
           onBootComplete={handleBootComplete}

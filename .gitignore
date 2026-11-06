@@ -1,4 +1,4 @@
-﻿# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
@@ -38,3 +38,13 @@ next-env.d.ts
 # local dev logs
 .next-dev*.log
 
+
+# temporary screenshots and test files
+comparison-screenshots/
+verification-screenshots/
+reference-screenshots/
+.tmp_chrome_verify_scrapbook/
+public/screenshots/
+public/test-*.html
+reference.html
+scripts/

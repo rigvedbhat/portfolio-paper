@@ -1,0 +1,93 @@
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { TypewriterText } from "./TypewriterText";
+
+export function Header() {
+  const pathname = usePathname();
+
+  const isAboutActive = pathname === "/about";
+  const isWorksActive = pathname === "/works" || (pathname?.startsWith("/works/") ?? false);
+  const isContactActive = pathname === "/contact";
+
+  const navLinks = [
+    { name: "about", href: "/about", isActive: isAboutActive },
+    { name: "works", href: "/works", isActive: isWorksActive },
+    { name: "contact", href: "/contact", isActive: isContactActive },
+  ];
+
+  return (
+    <header className="fixed top-0 left-0 right-0 w-full z-50 px-4 sm:px-8 md:px-14 py-3 sm:py-5 flex items-center justify-between pointer-events-none">
+      {/* Hand-drawn Logo on Left: Box with Boy Doodle Face + JOHN */}
+      <Link
+        href="/"
+        className="pointer-events-auto group inline-flex items-center gap-2 sm:gap-2.5 px-3 py-1 sm:px-4 sm:py-1.5 bg-white border-2 border-[#111111] rounded-[8px] shadow-xs hover:scale-105 transition-transform duration-200 select-none"
+        style={{ transform: "rotate(-2.2deg)" }}
+        title="John - Home"
+      >
+        <img
+          src="/assets/fNwIMs4sIdKKKRacWGUdjywxvk.svg"
+          alt="John Avatar Doodle"
+          className="w-6 h-6 sm:w-7 sm:h-7 object-contain select-none pointer-events-none"
+          draggable={false}
+        />
+        <span className="font-marker text-base sm:text-xl text-[#111111] tracking-wider select-none leading-none">
+          <TypewriterText text="JOHN" preset="nav" />
+        </span>
+      </Link>
+
+      {/* Three Oval Navigation Tabs on Right: Sketched Oval on Inactive, Black Scribble on Active */}
+      <nav className="pointer-events-auto flex items-center gap-2 sm:gap-4">
+        {navLinks.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            className={`group relative inline-flex items-center justify-center min-w-[76px] sm:min-w-[104px] h-[34px] sm:h-[44px] px-3.5 sm:px-5 select-none transition-transform duration-200 hover:scale-105 ${
+              item.isActive ? "active" : "inactive"
+            }`}
+          >
+            {/* 1. Black Marker Scribble Fill (Visible ONLY when tab is ACTIVE) */}
+            {item.isActive ? (
+              <span
+                className="absolute -inset-x-2 -inset-y-1.5 w-[calc(100%+16px)] h-[calc(100%+12px)] pointer-events-none z-10 select-none"
+                style={{
+                  WebkitMask:
+                    "url('/assets/BaWPy54e4I2icN0N7Fr6b3ISPQ.svg') no-repeat center / 100% 100%",
+                  mask: "url('/assets/BaWPy54e4I2icN0N7Fr6b3ISPQ.svg') no-repeat center / 100% 100%",
+                  backgroundColor: "#111111",
+                }}
+              />
+            ) : (
+              /* 2. Single Hand-Drawn Oval Border (Visible ONLY when tab is INACTIVE) */
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none z-0 select-none"
+                viewBox="0 0 120 48"
+                preserveAspectRatio="none"
+                fill="none"
+              >
+                <path
+                  d="M 16,24 C 15,10 30,5 60,4.5 C 90,4 105,10 104,24 C 103,38 90,44.5 60,45 C 30,45.5 17,38 16,24 Z"
+                  stroke="#111111"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
+
+            {/* 3. Tab Text: Crisp Bold White when active, Deep Charcoal when inactive */}
+            <span
+              className={`relative z-20 font-caveat font-bold text-xl sm:text-2xl md:text-[27px] leading-none -mt-0.5 tracking-wide transition-colors duration-200 select-none ${
+                item.isActive ? "text-white" : "text-[#111111]"
+              }`}
+            >
+              <TypewriterText text={item.name} preset="nav" />
+            </span>
+          </Link>
+        ))}
+      </nav>
+    </header>
+  );
+}

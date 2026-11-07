@@ -109,7 +109,13 @@ export function PaintbrushProjectCard({ proj }: { proj: ProjectCardData }) {
       {/* Authentic Picture Frame */}
       <div className="relative w-full aspect-[1144/650] flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.015]">
         {/* Inner Canvas Area (Photo + Wireframe Background) */}
-        <div className="relative w-full h-full border-[3px] border-double border-[#282828] transform rotate-1 overflow-hidden bg-[#f4f2ee] shadow-sm">
+        <div
+          className="relative w-full h-full border-[3px] border-double transform rotate-1 overflow-hidden shadow-sm transition-colors duration-300"
+          style={{
+            borderColor: "var(--wire-card-frame-border)",
+            backgroundColor: "var(--wire-card-frame-bg)",
+          }}
+        >
           {/* Native SVG Paintbrush Canvas with GPU-Accelerated Sweeping Mask Bands */}
           <svg
             viewBox="0 0 1000 580"
@@ -188,15 +194,15 @@ export function PaintbrushProjectCard({ proj }: { proj: ProjectCardData }) {
             </defs>
 
             {/* Base Wireframe Canvas Layer */}
-            <rect width="1000" height="580" fill="#f4f2ee" />
+            <rect width="1000" height="580" fill="var(--wire-card-frame-bg)" />
             <rect
               x="400"
               y="262"
               width="200"
               height="46"
               rx="6"
-              fill="white"
-              stroke="#111111"
+              fill="var(--wire-draft-box-bg)"
+              stroke="var(--wire-draft-box-stroke)"
               strokeWidth="1.5"
             />
             <text
@@ -205,7 +211,7 @@ export function PaintbrushProjectCard({ proj }: { proj: ProjectCardData }) {
               textAnchor="middle"
               fontFamily="Permanent Marker, cursive, sans-serif"
               fontSize="18"
-              fill="#111111"
+              fill="var(--wire-draft-text)"
             >
               {proj.title} [draft]
             </text>
@@ -228,12 +234,19 @@ export function PaintbrushProjectCard({ proj }: { proj: ProjectCardData }) {
 
       {/* Project Title & Category Bar Beneath Frame */}
       <div className="mt-2.5 sm:mt-3 px-1 flex items-center justify-between">
-        <h3 className="font-hand text-xl sm:text-2xl md:text-3xl text-[#111111] font-medium tracking-wide">
+        <h3 className="font-hand text-xl sm:text-2xl md:text-3xl text-[var(--wire-text-primary)] font-medium tracking-wide transition-colors duration-300">
           <TypewriterText text={proj.title} delayMs={150} speedMs={40} />
         </h3>
 
-        <div className="px-3 sm:px-4 py-0.5 rounded-full border border-[#111111] sketch-wobble bg-white/70">
-          <span className="font-caveat font-bold text-sm sm:text-lg text-[#111111]">
+        <div
+          className="px-3 sm:px-4 py-0.5 rounded-full sketch-wobble transition-colors duration-300"
+          style={{
+            border: "1px solid var(--wire-pill-border)",
+            backgroundColor: "var(--wire-pill-bg)",
+            color: "var(--wire-pill-text)",
+          }}
+        >
+          <span className="font-caveat font-bold text-sm sm:text-lg">
             <TypewriterText text={proj.category} preset="caption" />
           </span>
         </div>

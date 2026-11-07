@@ -12,7 +12,7 @@ export function VideoShowcase() {
       {/* Heading & Subtitle Container matching reference layout */}
       <div className="w-full max-w-5xl mb-4 sm:mb-6 flex flex-row items-center justify-between gap-3 sm:gap-4 px-1">
         {/* Main Heading: "Selected work — 2024 to 2026" with Typewriter Effect */}
-        <h2 className="font-caveat font-bold text-xl sm:text-3xl md:text-4xl text-[#111111] tracking-tight leading-tight">
+        <h2 className="font-caveat font-bold text-xl sm:text-3xl md:text-4xl text-[var(--wire-text-primary)] tracking-tight leading-tight transition-colors duration-300">
           <TypewriterText text="Selected work — 2024 to 2026" delayMs={200} speedMs={30} />
         </h2>
 
@@ -27,13 +27,14 @@ export function VideoShowcase() {
           >
             <path
               d="M44 6 C 30 5, 12 8, 4 17 M 4 17 L 5 8 M 4 17 L 13 16"
-              stroke="#111111"
+              stroke="var(--wire-canvas-stroke)"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              className="transition-colors duration-300"
             />
           </svg>
-          <p className="font-caveat font-bold text-sm sm:text-xl md:text-2xl text-[#111111] whitespace-nowrap">
+          <p className="font-caveat font-bold text-sm sm:text-xl md:text-2xl text-[var(--wire-text-secondary)] whitespace-nowrap transition-colors duration-300">
             <TypewriterText text="a little showcase of my work" delayMs={450} speedMs={25} />
           </p>
         </div>

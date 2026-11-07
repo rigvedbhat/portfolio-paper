@@ -11,17 +11,17 @@ const config: Config = {
     extend: {
       colors: {
         wire: {
-          bg: "#f7f6f4",
-          card: "#ffffff",
-          yellow: "#ffe500",
-          yellowHover: "#ebd200",
-          black: "#111111",
-          dark: "#1c1b18",
-          gray: "#5e5e5e",
-          muted: "#888888",
-          lightGray: "#e6e4e0",
-          border: "#111111",
-          red: "#e02e2e",
+          bg: "var(--wire-bg)",
+          card: "var(--wire-card)",
+          yellow: "var(--wire-yellow)",
+          yellowHover: "var(--wire-yellow-hover)",
+          black: "var(--wire-black)",
+          dark: "var(--wire-dark)",
+          gray: "var(--wire-gray)",
+          muted: "var(--wire-muted)",
+          lightGray: "var(--wire-light-gray)",
+          border: "var(--wire-border)",
+          red: "var(--wire-red)",
         },
       },
       fontFamily: {

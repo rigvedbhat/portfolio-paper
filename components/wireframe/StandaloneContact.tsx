@@ -24,11 +24,11 @@ export function StandaloneContact() {
 
   return (
     <section className="relative w-full min-h-[calc(100vh-140px)] pt-28 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 md:px-14 bg-wire-bg select-none overflow-hidden">
-      {/* Subtle Grey Dotted Grid Background */}
+      {/* Subtle Dotted Grid Background */}
       <div
         className="absolute inset-0 pointer-events-none opacity-60 z-0"
         style={{
-          backgroundImage: "radial-gradient(#d1d5db 1.2px, transparent 1.2px)",
+          backgroundImage: "radial-gradient(var(--wire-grid-dot) 1.2px, transparent 1.2px)",
           backgroundSize: "24px 24px",
         }}
       />
@@ -44,7 +44,7 @@ export function StandaloneContact() {
           {/* LEFT COLUMN: Massive "Say hello" + Yellow Sticky Note + Curved Arrow */}
           <div className="lg:col-span-5 flex flex-col items-start pt-2 sm:pt-6">
             {/* Massive Heading */}
-            <h1 className="font-marker text-6xl sm:text-7xl md:text-8xl lg:text-[96px] text-[#111111] leading-[0.9] tracking-tight uppercase select-none mb-6 sm:mb-8">
+            <h1 className="font-marker text-6xl sm:text-7xl md:text-8xl lg:text-[96px] text-wire-black leading-[0.9] tracking-tight uppercase select-none mb-6 sm:mb-8">
               <TypewriterText text="Say hello" preset="heading" />
             </h1>
 
@@ -82,14 +82,14 @@ export function StandaloneContact() {
               >
                 <path
                   d="M10 20 C 35 15, 65 25, 80 45"
-                  stroke="#111111"
+                  stroke="var(--wire-canvas-stroke)"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeDasharray="4 4"
                 />
                 <polyline
                   points="65 48 82 46 80 30"
-                  stroke="#111111"
+                  stroke="var(--wire-canvas-stroke)"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -101,15 +101,16 @@ export function StandaloneContact() {
           {/* RIGHT COLUMN: Contact with me! Form Card */}
           <div className="lg:col-span-7 w-full flex justify-center lg:justify-end">
             <div
-              className="relative w-full max-w-xl bg-[#fbfbf9] rounded-[16px] p-6 sm:p-10 shadow-[0_12px_36px_rgba(0,0,0,0.08)] select-none"
+              className="relative w-full max-w-xl rounded-[16px] p-6 sm:p-10 shadow-[0_16px_45px_rgba(0,0,0,0.12)] select-none"
               style={{
-                border: "3px double #111111",
+                backgroundColor: "var(--wire-form-card-bg)",
+                border: "3px double var(--wire-form-card-border)",
                 transform: "rotate(-0.4deg)",
               }}
             >
               {/* Form Heading */}
               <div className="mb-8">
-                <h2 className="font-marker text-2xl sm:text-3xl text-[#111111] tracking-wide">
+                <h2 className="font-marker text-2xl sm:text-3xl text-wire-black tracking-wide">
                   <TypewriterText text="Contact with me!" preset="heading" />
                 </h2>
               </div>
@@ -128,8 +129,8 @@ export function StandaloneContact() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="font-marker text-2xl text-[#111111] mb-2">Message Sent!</h3>
-                  <p className="font-hand text-lg text-[#555555]">
+                  <h3 className="font-marker text-2xl text-wire-black mb-2">Message Sent!</h3>
+                  <p className="font-hand text-lg text-wire-muted">
                     Thanks for reaching out! I&apos;ll get back to you shortly.
                   </p>
                 </div>
@@ -145,7 +146,7 @@ export function StandaloneContact() {
                       placeholder="Your name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-transparent font-hand text-lg sm:text-xl text-[#111111] placeholder-[#777777] outline-none py-1.5 px-0"
+                      className="w-full bg-transparent font-hand text-lg sm:text-xl text-wire-black placeholder-wire-muted outline-none py-1.5 px-0"
                     />
                     {/* Hand-Drawn Underline SVG */}
                     <div className="w-full h-2.5 overflow-hidden -mt-1 pointer-events-none">
@@ -153,6 +154,7 @@ export function StandaloneContact() {
                         src="/assets/mVqvbTUbNChN4quMJjltePhW1A.svg"
                         alt=""
                         className="w-full h-full object-fill select-none"
+                        style={{ filter: "var(--wire-invert-filter)" }}
                         draggable={false}
                       />
                     </div>
@@ -167,7 +169,7 @@ export function StandaloneContact() {
                       placeholder="Email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-transparent font-hand text-lg sm:text-xl text-[#111111] placeholder-[#777777] outline-none py-1.5 px-0"
+                      className="w-full bg-transparent font-hand text-lg sm:text-xl text-wire-black placeholder-wire-muted outline-none py-1.5 px-0"
                     />
                     {/* Hand-Drawn Underline SVG */}
                     <div className="w-full h-2.5 overflow-hidden -mt-1 pointer-events-none">
@@ -175,6 +177,7 @@ export function StandaloneContact() {
                         src="/assets/mVqvbTUbNChN4quMJjltePhW1A.svg"
                         alt=""
                         className="w-full h-full object-fill select-none"
+                        style={{ filter: "var(--wire-invert-filter)" }}
                         draggable={false}
                       />
                     </div>
@@ -189,7 +192,7 @@ export function StandaloneContact() {
                       placeholder="Message"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-transparent font-hand text-lg sm:text-xl text-[#111111] placeholder-[#777777] outline-none py-1.5 px-0 resize-none"
+                      className="w-full bg-transparent font-hand text-lg sm:text-xl text-wire-black placeholder-wire-muted outline-none py-1.5 px-0 resize-none"
                     />
                     {/* Hand-Drawn Underline SVG */}
                     <div className="w-full h-2.5 overflow-hidden -mt-1 pointer-events-none">
@@ -197,6 +200,7 @@ export function StandaloneContact() {
                         src="/assets/mVqvbTUbNChN4quMJjltePhW1A.svg"
                         alt=""
                         className="w-full h-full object-fill select-none"
+                        style={{ filter: "var(--wire-invert-filter)" }}
                         draggable={false}
                       />
                     </div>
@@ -246,7 +250,7 @@ export function StandaloneContact() {
               )}
 
               {/* Divider Line */}
-              <div className="w-full h-[1px] bg-[#e2e2e2] my-8" />
+              <div className="w-full h-[1px] bg-wire-border my-8" />
 
               {/* Bottom Info: Email on left, Socials on right */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -254,7 +258,7 @@ export function StandaloneContact() {
                 <div className="flex flex-col">
                   <a
                     href="mailto:john@wireframe.design"
-                    className="font-caveat font-bold text-lg sm:text-xl text-[#111111] hover:text-[#555555] transition-colors select-none"
+                    className="font-caveat font-bold text-lg sm:text-xl text-wire-black hover:text-wire-yellow transition-colors select-none"
                   >
                     <TypewriterText text="john@wireframe.design" preset="fast" />
                   </a>
@@ -263,6 +267,7 @@ export function StandaloneContact() {
                       src="/assets/mVqvbTUbNChN4quMJjltePhW1A.svg"
                       alt=""
                       className="w-full h-full object-fill"
+                      style={{ filter: "var(--wire-invert-filter)" }}
                     />
                   </div>
                 </div>
@@ -279,7 +284,7 @@ export function StandaloneContact() {
                         href={s.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-caveat font-bold text-base sm:text-lg text-[#111111] hover:text-[#555555] transition-colors lowercase select-none"
+                        className="font-caveat font-bold text-base sm:text-lg text-wire-black hover:text-wire-yellow transition-colors lowercase select-none"
                       >
                         <TypewriterText text={s.name} preset="fast" />
                       </a>
@@ -288,6 +293,7 @@ export function StandaloneContact() {
                           src="/assets/mVqvbTUbNChN4quMJjltePhW1A.svg"
                           alt=""
                           className="w-full h-full object-fill"
+                          style={{ filter: "var(--wire-invert-filter)" }}
                         />
                       </div>
                     </div>

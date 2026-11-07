@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { TypewriterText } from "./TypewriterText";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   const pathname = usePathname();
@@ -48,7 +49,7 @@ export function Header() {
               item.isActive ? "active" : "inactive"
             }`}
           >
-            {/* 1. Black Marker Scribble Fill (Visible ONLY when tab is ACTIVE) */}
+            {/* 1. Marker Scribble Fill (Visible ONLY when tab is ACTIVE) */}
             {item.isActive ? (
               <span
                 className="absolute -inset-x-2 -inset-y-1.5 w-[calc(100%+16px)] h-[calc(100%+12px)] pointer-events-none z-10 select-none"
@@ -56,7 +57,7 @@ export function Header() {
                   WebkitMask:
                     "url('/assets/BaWPy54e4I2icN0N7Fr6b3ISPQ.svg') no-repeat center / 100% 100%",
                   mask: "url('/assets/BaWPy54e4I2icN0N7Fr6b3ISPQ.svg') no-repeat center / 100% 100%",
-                  backgroundColor: "#111111",
+                  backgroundColor: "var(--wire-nav-active-bg)",
                 }}
               />
             ) : (
@@ -69,24 +70,30 @@ export function Header() {
               >
                 <path
                   d="M 16,24 C 15,10 30,5 60,4.5 C 90,4 105,10 104,24 C 103,38 90,44.5 60,45 C 30,45.5 17,38 16,24 Z"
-                  stroke="#111111"
+                  stroke="var(--wire-nav-border)"
                   strokeWidth="2.2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="transition-colors duration-200"
                 />
               </svg>
             )}
 
-            {/* 3. Tab Text: Crisp Bold White when active, Deep Charcoal when inactive */}
+            {/* 3. Tab Text */}
             <span
               className={`relative z-20 font-caveat font-bold text-xl sm:text-2xl md:text-[27px] leading-none -mt-0.5 tracking-wide transition-colors duration-200 select-none ${
-                item.isActive ? "text-white" : "text-[#111111]"
+                item.isActive
+                  ? "text-[var(--wire-nav-active-text)]"
+                  : "text-[var(--wire-nav-text)] group-hover:text-[var(--wire-text-primary)]"
               }`}
             >
               <TypewriterText text={item.name} preset="nav" />
             </span>
           </Link>
         ))}
+
+        {/* 4. Hand-drawn Theme Toggle (Light / Dark) */}
+        <ThemeToggle />
       </nav>
     </header>
   );

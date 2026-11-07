@@ -57,20 +57,20 @@ export function FeaturedProjects() {
         <div className="mt-20 sm:mt-28 flex justify-center">
           <Link
             href="/works"
-            className="group relative inline-flex items-center gap-3 px-8 py-3.5 bg-white border-2 border-[#111111] rounded-full shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105 active:scale-95 select-none"
+            className="group relative inline-flex items-center gap-3 px-8 py-3.5 bg-wire-card border-2 border-wire-border hover:border-wire-yellow rounded-full shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105 active:scale-95 select-none"
             style={{ transform: "rotate(-0.8deg)" }}
           >
             <span className="absolute inset-0 rounded-full bg-[#ffe500] opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-0" />
 
-            <span className="relative z-10 font-caveat font-bold text-2xl sm:text-3xl text-[#111111] leading-none tracking-wide">
+            <span className="relative z-10 font-caveat font-bold text-2xl sm:text-3xl text-wire-black group-hover:text-[#111111] leading-none tracking-wide transition-colors">
               <TypewriterText text="VIEW ALL WORKS" preset="heading" />
             </span>
 
             <svg
-              className="relative z-10 w-6 h-6 transform transition-transform duration-200 group-hover:translate-x-1"
+              className="relative z-10 w-6 h-6 transform transition-transform duration-200 group-hover:translate-x-1 text-wire-black group-hover:text-[#111111]"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#111111"
+              stroke="currentColor"
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"

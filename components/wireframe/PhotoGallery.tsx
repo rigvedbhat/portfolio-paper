@@ -64,7 +64,7 @@ export function PhotoGallery() {
     <section className="relative w-full py-16 sm:py-24 px-4 sm:px-8 bg-wire-bg select-none overflow-hidden flex flex-col items-center">
       {/* 1. Primary Heading: "THINGS I POINTED MY CAMERA AT" with Typewriter Effect */}
       <div className="flex flex-col items-center text-center mb-10 sm:mb-14">
-        <h2 className="font-marker text-4xl sm:text-6xl md:text-7xl text-[#111111] leading-tight tracking-tight uppercase">
+        <h2 className="font-marker text-4xl sm:text-6xl md:text-7xl text-wire-black leading-tight tracking-tight uppercase">
           <TypewriterText text="THINGS I POINTED" delayMs={150} speedMs={35} />
           <br />
           <TypewriterText text="MY CAMERA AT" delayMs={600} speedMs={35} />
@@ -79,13 +79,13 @@ export function PhotoGallery() {
       {/* 2. Camera Interface with Peeking Photos Container */}
       <div className="relative w-full max-w-5xl flex items-center justify-center">
         {/* Physical Camera Body: Clean, Straight, Geometrically Consistent Edges (NO sketch-wobble) */}
-        <div className="relative z-20 w-full max-w-[680px] bg-gradient-to-b from-[#e5e2da] via-[#dcd8ce] to-[#cfcac0] rounded-[32px] sm:rounded-[38px] p-5 sm:p-7 border-2 border-[#111111] shadow-[0_28px_65px_rgba(0,0,0,0.18)] flex flex-col">
+        <div className="relative z-20 w-full max-w-[680px] bg-gradient-to-b from-[#282724] via-[#201f1c] to-[#181716] rounded-[32px] sm:rounded-[38px] p-5 sm:p-7 border-2 border-[#383530] shadow-[0_28px_65px_rgba(0,0,0,0.55)] flex flex-col">
           {/* Subtle brushed cross-hatch texture */}
           <div
-            className="absolute inset-0 rounded-[30px] sm:rounded-[36px] pointer-events-none opacity-10"
+            className="absolute inset-0 rounded-[30px] sm:rounded-[36px] pointer-events-none opacity-5"
             style={{
               backgroundImage:
-                "linear-gradient(90deg, #000 1px, transparent 1px), linear-gradient(0deg, #000 1px, transparent 1px)",
+                "linear-gradient(90deg, #fff 1px, transparent 1px), linear-gradient(0deg, #fff 1px, transparent 1px)",
               backgroundSize: "4px 4px",
             }}
           />
@@ -93,7 +93,7 @@ export function PhotoGallery() {
           {/* Camera Controls Area */}
           <div className="relative z-10 flex flex-col sm:flex-row items-center gap-5 sm:gap-7">
             {/* Left: Clean Rectangular LCD Viewfinder Screen with Consistent Rounded Corners */}
-            <div className="relative w-full sm:w-[420px] aspect-[4/3] bg-[#111111] rounded-xl sm:rounded-2xl p-2.5 sm:p-3 border-2 border-[#222222] shadow-inner overflow-hidden flex flex-col">
+            <div className="relative w-full sm:w-[420px] aspect-[4/3] bg-[#111111] rounded-xl sm:rounded-2xl p-2.5 sm:p-3 border-2 border-[#2a2926] shadow-inner overflow-hidden flex flex-col">
               {/* Top LCD HUD Status */}
               <div className="relative z-20 flex items-center justify-between text-white font-mono text-xs sm:text-sm px-2 py-1 select-none pointer-events-none">
                 <span className="flex items-center gap-1.5 font-bold">
@@ -176,7 +176,7 @@ export function PhotoGallery() {
 
           {/* Bottom Branding: "W I R E F R A M E" */}
           <div className="mt-4 sm:mt-5 text-center">
-            <span className="font-mono text-xs sm:text-sm tracking-[0.35em] text-[#666660] font-bold">
+            <span className="font-mono text-xs sm:text-sm tracking-[0.35em] text-[#858279] font-bold">
               W I R E F R A M E
             </span>
           </div>
@@ -187,7 +187,7 @@ export function PhotoGallery() {
           {photoList.slice(currentIndex + 1, currentIndex + 3).map((p, idx) => (
             <div
               key={p.id}
-              className="w-44 aspect-[4/3] bg-white p-2 rounded-lg border-2 border-[#111111] shadow-md flex-shrink-0"
+              className="w-44 aspect-[4/3] bg-white p-2 rounded-lg border-2 border-[#383530] shadow-md flex-shrink-0"
               style={{ transform: idx === 1 ? "rotate(2deg)" : "rotate(-1deg)" }}
             >
               <div className={`w-full h-full rounded bg-gradient-to-tr ${p.palette}`} />
@@ -199,9 +199,9 @@ export function PhotoGallery() {
       {/* 3. Annotation below camera: "^ shot on film" */}
       <div className="mt-6 sm:mt-8 flex items-center gap-1.5">
         <svg viewBox="0 0 32 20" fill="none" className="w-6 h-4">
-          <path d="M4 16 C 14 14, 20 8, 28 4 M 28 4 L 20 4 M 28 4 L 26 12" stroke="#111111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M4 16 C 14 14, 20 8, 28 4 M 28 4 L 20 4 M 28 4 L 26 12" stroke="currentColor" className="text-wire-black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        <span className="font-caveat font-bold text-lg sm:text-2xl text-[#111111]">
+        <span className="font-caveat font-bold text-lg sm:text-2xl text-wire-black">
           <TypewriterText text="shot on film" preset="caption" />
         </span>
       </div>

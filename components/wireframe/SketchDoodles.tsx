@@ -12,13 +12,13 @@ export function ArrowDoodle({ className = "" }: { className?: string }) {
     >
       <path
         d="M6 10 C 25 4, 52 6, 68 18 C 72 21, 74 24, 73 26"
-        stroke="#111111"
+        stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
       <path
         d="M60 26 C 66 26, 73 26, 73 26 C 73 26, 74 19, 73 14"
-        stroke="#111111"
+        stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -38,13 +38,13 @@ export function SubmitArrow({ className = "" }: { className?: string }) {
     >
       <path
         d="M4 12 C 16 11, 32 12, 46 12"
-        stroke="#111111"
+        stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
       <path
         d="M38 5 C 41 8, 46 11, 48 12 C 45 14, 40 17, 37 20"
-        stroke="#111111"
+        stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -64,7 +64,7 @@ export function WavyUnderline({ className = "" }: { className?: string }) {
     >
       <path
         d="M2 7 C 14 3, 22 10, 34 6 C 46 2, 54 9, 66 5 C 78 1, 86 8, 98 4 C 110 1, 118 7, 130 4 C 134 3, 137 5, 138 6"
-        stroke="#111111"
+        stroke="currentColor"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
@@ -350,25 +350,31 @@ export function BeveledSketchFrame({
   aspectRatio?: string;
 }) {
   return (
-    <div className={`relative w-full p-3 sm:p-5 md:p-6 bg-[#fbfaf8] border-2 border-[#111111] sketch-wobble shadow-sm ${className}`}>
+    <div
+      className={`relative w-full p-3 sm:p-5 md:p-6 sketch-wobble shadow-sm transition-colors duration-300 ${className}`}
+      style={{
+        backgroundColor: "var(--wire-card)",
+        border: "2px solid var(--wire-border)",
+      }}
+    >
       {/* 4 Mitered diagonal corner lines connecting outer box to inner image */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none z-10"
         xmlns="http://www.w3.org/2000/svg"
       >
         {/* Top-left miter */}
-        <line x1="0" y1="0" x2="24" y2="24" stroke="#111111" strokeWidth="2" />
+        <line x1="0" y1="0" x2="24" y2="24" stroke="var(--wire-border)" strokeWidth="2" />
         {/* Top-right miter */}
-        <line x1="100%" y1="0" x2="calc(100% - 24px)" y2="24" stroke="#111111" strokeWidth="2" />
+        <line x1="100%" y1="0" x2="calc(100% - 24px)" y2="24" stroke="var(--wire-border)" strokeWidth="2" />
         {/* Bottom-left miter */}
-        <line x1="0" y1="100%" x2="24" y2="calc(100% - 24px)" stroke="#111111" strokeWidth="2" />
+        <line x1="0" y1="100%" x2="24" y2="calc(100% - 24px)" stroke="var(--wire-border)" strokeWidth="2" />
         {/* Bottom-right miter */}
-        <line x1="100%" y1="100%" x2="calc(100% - 24px)" y2="calc(100% - 24px)" stroke="#111111" strokeWidth="2" />
+        <line x1="100%" y1="100%" x2="calc(100% - 24px)" y2="calc(100% - 24px)" stroke="var(--wire-border)" strokeWidth="2" />
 
         {/* Subtle diagonal hatching pattern along the bevel borders */}
         <defs>
           <pattern id="bevel-hatch" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="0" x2="0" y2="8" stroke="#111111" strokeWidth="0.8" opacity="0.35" />
+            <line x1="0" y1="0" x2="0" y2="8" stroke="var(--wire-canvas-stroke)" strokeWidth="0.8" opacity="0.15" />
           </pattern>
         </defs>
         <rect x="0" y="0" width="100%" height="100%" fill="url(#bevel-hatch)" opacity="0.4" />
@@ -376,8 +382,12 @@ export function BeveledSketchFrame({
 
       {/* Inner Image Frame */}
       <div
-        className="relative z-0 w-full overflow-hidden border-2 border-[#111111] bg-white sketch-subtle"
-        style={{ aspectRatio }}
+        className="relative z-0 w-full overflow-hidden sketch-subtle transition-colors duration-300"
+        style={{
+          aspectRatio,
+          border: "2px solid var(--wire-border)",
+          backgroundColor: "var(--wire-bg)",
+        }}
       >
         {children}
       </div>
@@ -416,26 +426,26 @@ export function ArrowNoteAnnotation({
   className?: string;
 }) {
   return (
-    <div className={`inline-flex items-center gap-1.5 select-none font-caveat font-bold text-base sm:text-xl text-[#111111] ${className}`}>
+    <div className={`inline-flex items-center gap-1.5 select-none font-caveat font-bold text-base sm:text-xl text-[var(--wire-text-secondary)] transition-colors duration-300 ${className}`}>
       {direction === "left" && (
         <svg viewBox="0 0 40 18" fill="none" className="w-8 h-4">
-          <path d="M38 10 C 25 12, 12 11, 4 9 M4 9 L 10 4 M 4 9 L 10 15" stroke="#111111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M38 10 C 25 12, 12 11, 4 9 M4 9 L 10 4 M 4 9 L 10 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       )}
       {direction === "up" && (
         <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
-          <path d="M12 22 C 12 14, 11 8, 12 4 M 12 4 L 7 9 M 12 4 L 17 9" stroke="#111111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M12 22 C 12 14, 11 8, 12 4 M 12 4 L 7 9 M 12 4 L 17 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       )}
       {direction === "down-left" && (
         <svg viewBox="0 0 36 24" fill="none" className="w-7 h-5">
-          <path d="M32 4 C 24 6, 12 12, 5 19 M 5 19 L 5 11 M 5 19 L 14 20" stroke="#111111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M32 4 C 24 6, 12 12, 5 19 M 5 19 L 5 11 M 5 19 L 14 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       )}
       <span><TypewriterText text={text} preset="caption" /></span>
       {direction === "right" && (
         <svg viewBox="0 0 40 18" fill="none" className="w-8 h-4">
-          <path d="M2 9 C 14 8, 26 9, 36 10 M 36 10 L 30 4 M 36 10 L 30 16" stroke="#111111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M2 9 C 14 8, 26 9, 36 10 M 36 10 L 30 4 M 36 10 L 30 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       )}
     </div>
@@ -453,7 +463,7 @@ export function StarDoodle({ className = "" }: { className?: string }) {
     >
       <path
         d="M12 2 L12 22 M2 12 L22 12 M5 5 L19 19 M5 19 L19 5"
-        stroke="#111111"
+        stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
       />
@@ -472,7 +482,7 @@ export function SparkleDoodle({ className = "" }: { className?: string }) {
     >
       <path
         d="M10 2 C 10 7, 10 7, 10 18 M2 10 C 7 10, 7 10, 18 10"
-        stroke="#111111"
+        stroke="currentColor"
         strokeWidth="2.2"
         strokeLinecap="round"
       />

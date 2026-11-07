@@ -7,18 +7,20 @@ export function HeroSection() {
   const pendulumRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
 
-  // Physics state for smooth vertical drop and natural pendulum dangle
+  // Physics state for smooth natural elastic dangle & swing
   const physicsState = useRef({
-    // Start timestamp for graceful ~1.6s entry drop
-    startTime: 0,
-    dropDuration: 1600, // 1.6s visible, graceful descent
-    startDropY: -650,    // Starts well above viewport
-    currentDropY: -650,
+    // Vertical elastic spring displacement & velocity
+    displacementY: 65,
+    velocityY: 0,
+    hasStarted: false,
     // Pendulum angular swing
-    theta: 0.20,        // Initial sway angle (~11.5 degrees) for graceful entry dangle
+    theta: 0.16,        // Initial sway angle
     omega: 0.0,         // Angular velocity
     prevMouseX: 0,
     prevMouseY: 0,
+    hoverNudgeY: 0,
+    hoverNudgeVel: 0,
+    isHovered: false,
   });
 
   // Track scroll position for smooth layered hero exit
@@ -74,25 +76,21 @@ export function HeroSection() {
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
 
-    // Physics constants for pendulum dangle
-    const gravity = 0.0018;    // Restoring torque for pendulum swing
-    const airFriction = 0.990; // Natural fluid air damping
-    const maxTheta = 0.30;     // Max swing limit (~17 deg)
+    // Physics constants for pendulum dangle & elastic vertical bounce
+    const gravity = 0.0016;    // Restoring torque for pendulum swing
+    const airFriction = 0.992; // Natural fluid air damping
+    const maxTheta = 0.28;     // Max swing limit
 
-    const updatePhysics = (timestamp: number) => {
+    const updatePhysics = () => {
       const state = physicsState.current;
-      if (!state.startTime) state.startTime = timestamp;
 
-      // 1. Vertical Drop-Down (Smooth 1.6s ease-out descent with ZERO downward overshoot)
-      const elapsed = timestamp - state.startTime;
-      if (elapsed < state.dropDuration) {
-        const progress = elapsed / state.dropDuration;
-        // Cubic ease-out: starts with momentum, gently glides into resting place
-        const ease = 1 - Math.pow(1 - progress, 3);
-        state.currentDropY = state.startDropY * (1 - ease);
-      } else {
-        state.currentDropY = 0;
-      }
+      // 1. Natural elastic vertical dangle spring (slower, bouncier diminishing oscillations like the rope)
+      const targetY = state.isHovered ? -10 : 0;
+      const springK = 0.016;
+      const damping = 0.965;
+      const forceY = -springK * (state.displacementY - targetY);
+      state.velocityY = (state.velocityY + forceY) * damping;
+      state.displacementY += state.velocityY;
 
       // 2. Pendulum Dangle & Swing Physics
       const torque = -gravity * Math.sin(state.theta);
@@ -109,11 +107,11 @@ export function HeroSection() {
         state.omega = -state.omega * 0.35;
       }
 
-      // 3. Apply 3D Transform to Pendulum (Anchored at top center 0px)
+      // 3. Apply 3D Transform to Pendulum (Anchored at top center)
       if (pendulumRef.current) {
         const deg = (state.theta * 180) / Math.PI;
         const rotateY = deg * 0.45;
-        pendulumRef.current.style.transform = `translate3d(0, ${state.currentDropY.toFixed(2)}px, 0) rotate(${deg.toFixed(3)}deg) rotateY(${rotateY.toFixed(3)}deg)`;
+        pendulumRef.current.style.transform = `translate3d(0, ${state.displacementY.toFixed(2)}px, 0) rotate(${deg.toFixed(3)}deg) rotateY(${rotateY.toFixed(3)}deg)`;
       }
 
       animationFrameId = requestAnimationFrame(updatePhysics);
@@ -127,13 +125,18 @@ export function HeroSection() {
     };
   }, []);
 
-  // Subtle nudge when mouse enters the badge card
+  // Nudge and bounce when mouse enters/leaves the badge card
   const handleCardMouseEnter = () => {
-    physicsState.current.omega += 0.004;
+    physicsState.current.omega += 0.005;
+    physicsState.current.isHovered = true;
+  };
+
+  const handleCardMouseLeave = () => {
+    physicsState.current.isHovered = false;
   };
 
   // Scroll interpolation values
-  const watermarkOpacity = Math.max(0.15, 0.85 - scrollY * 0.0015);
+  const watermarkOpacity = Math.max(0.08, 0.45 - scrollY * 0.0008);
   const watermarkTranslateY = scrollY * 0.25;
   const heroContentOpacity = Math.max(0, 1 - scrollY * 0.002);
 
@@ -161,8 +164,8 @@ export function HeroSection() {
         </h2>
       </div>
 
-      {/* 2. Hanging ID Badge System Suspended from Absolute Top Edge (0px) */}
-      <div className="absolute top-0 left-0 right-0 w-full flex flex-col items-center pointer-events-none z-20">
+      {/* 2. Hanging ID Badge System Suspended from above viewport */}
+      <div className="absolute -top-16 left-0 right-0 w-full flex flex-col items-center pointer-events-none z-20">
         {/* Physical Pendulum Container with Drop-down and Dangle Physics */}
         <div
           ref={pendulumRef}
@@ -173,11 +176,12 @@ export function HeroSection() {
           }}
           className="flex flex-col items-center pointer-events-auto cursor-grab active:cursor-grabbing"
           onMouseEnter={handleCardMouseEnter}
+          onMouseLeave={handleCardMouseLeave}
         >
-          {/* Authentic Crimson Lanyard Ribbon (Starts from very top edge 0px with NO gap) */}
+          {/* Authentic Crimson Lanyard Ribbon (Extends well above screen edge so top cut is never visible) */}
           <div className="flex flex-col items-center">
-            {/* Lanyard strap with woven texture */}
-            <div className="relative w-4 sm:w-5 h-10 sm:h-12 overflow-hidden shadow-xs">
+            {/* Extended lanyard strap with woven texture */}
+            <div className="relative w-4 sm:w-5 h-24 sm:h-28 overflow-hidden shadow-xs">
               <img
                 src="/assets/lanyard-strap.png"
                 alt=""
@@ -260,12 +264,12 @@ export function HeroSection() {
           transition: "opacity 0.1s ease-out",
         }}
       >
-        <h1 className="font-marker text-5xl sm:text-7xl md:text-8xl lg:text-[100px] text-[#222222] leading-[0.9] tracking-tight uppercase select-none">
+        <h1 className="font-marker text-5xl sm:text-7xl md:text-8xl lg:text-[100px] text-[var(--wire-text-primary)] leading-[0.9] tracking-tight uppercase select-none transition-colors duration-300">
           <TypewriterText text="I'M JOHN" delayMs={300} speedMs={60} />
         </h1>
 
         {/* 4. Subtitle in Patrick Hand font with Typewriter Reveal */}
-        <p className="mt-4 sm:mt-5 font-hand text-base sm:text-xl md:text-2xl text-[#444444] leading-relaxed max-w-3xl px-2">
+        <p className="mt-4 sm:mt-5 font-hand text-base sm:text-xl md:text-2xl text-[var(--wire-text-secondary)] leading-relaxed max-w-3xl px-2 transition-colors duration-300">
           <TypewriterText
             text="A product designer in Chicago who gets excited about making complicated things simple"
             delayMs={700}

@@ -62,23 +62,35 @@ const BANNER_ITEMS = [
 
 // Helper to calculate exact Y on the primary hanging curve
 function getCurveY(normX: number, containerHeight: number) {
-  // Catenary sag / cubic bezier profile matching Framer FP6zgnGJJVkNmGgCWKpK1eNL1JU
-  // Normalized Y curve where center dips down
+  // Catenary sag profile
   const dip = Math.sin(normX * Math.PI);
-  return containerHeight * 0.22 + dip * (containerHeight * 0.32);
+  return containerHeight * 0.16 + dip * (containerHeight * 0.42);
 }
 
 export function HangingAboutBanner() {
+  const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [containerSize, setContainerSize] = useState({ w: 880, h: 300 });
+  const cord1Ref = useRef<SVGPathElement>(null);
+  const cord2Ref = useRef<SVGPathElement>(null);
+  const [containerSize, setContainerSize] = useState({ w: 1200, h: 300 });
   const [isMobile, setIsMobile] = useState(false);
+
+  // Damped spring oscillation for whole body (string + all letters together)
+  const bodySpring = useRef({
+    displacementY: 0,
+    velocityY: 0,
+    angleOffset: 0,
+    angleVelocity: 0,
+    hasStarted: false,
+    hoverActiveCount: 0, // When any paper is hovered, adds slight tension to whole body
+  });
 
   useEffect(() => {
     const updateSize = () => {
       const el = containerRef.current;
       if (!el) return;
-      const w = el.clientWidth || 880;
+      const w = el.clientWidth || window.innerWidth || 1200;
       const mobile = w < 810;
       setIsMobile(mobile);
       setContainerSize({ w, h: mobile ? 220 : 300 });
@@ -89,61 +101,41 @@ export function HangingAboutBanner() {
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  // Physics state per letter card: angle (rad), angular velocity, resting tilt
-  const physicsState = useRef(
-    BANNER_ITEMS.map((item) => ({
-      angle: (item.tilt * Math.PI) / 180,
-      velocity: 0,
-      targetAngle: (item.tilt * Math.PI) / 180,
-    }))
-  );
-
-  // Mouse velocity tracking for airflow simulation
-  const mouseState = useRef({
-    x: 0,
-    y: 0,
-    lastX: 0,
-    lastY: 0,
-    vx: 0,
-    vy: 0,
-    lastTime: 0,
-    active: false,
-  });
-
   useEffect(() => {
     const prefersReducedMotion =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const handlePointerMove = (e: MouseEvent | TouchEvent) => {
-      const clientX = "touches" in e ? e.touches[0].clientX : (e as MouseEvent).clientX;
-      const clientY = "touches" in e ? e.touches[0].clientY : (e as MouseEvent).clientY;
-      const now = performance.now();
-      const m = mouseState.current;
+    // Trigger entry spring when section enters viewport
+    if (!prefersReducedMotion && !bodySpring.current.hasStarted) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !bodySpring.current.hasStarted) {
+              bodySpring.current.hasStarted = true;
+              // Noticeably bouncier, slower initial displacement for string & letters together
+              bodySpring.current.displacementY = 70;
+              bodySpring.current.velocityY = 0;
+              bodySpring.current.angleOffset = 0.09;
+              bodySpring.current.angleVelocity = 0;
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
 
-      if (m.lastTime > 0) {
-        const dt = Math.max(1, now - m.lastTime);
-        const instantVx = (clientX - m.lastX) / dt;
-        const instantVy = (clientY - m.lastY) / dt;
-        m.vx = m.vx * 0.5 + instantVx * 0.5;
-        m.vy = m.vy * 0.5 + instantVy * 0.5;
+      if (sectionRef.current) {
+        observer.observe(sectionRef.current);
       }
 
-      m.lastX = m.x;
-      m.lastY = m.y;
-      m.x = clientX;
-      m.y = clientY;
-      m.lastTime = now;
-      m.active = true;
-    };
+      return () => observer.disconnect();
+    }
+  }, []);
 
-    const handlePointerLeave = () => {
-      mouseState.current.active = false;
-    };
-
-    window.addEventListener("mousemove", handlePointerMove, { passive: true });
-    window.addEventListener("touchmove", handlePointerMove, { passive: true });
-    window.addEventListener("mouseleave", handlePointerLeave);
+  useEffect(() => {
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let animId: number;
 
@@ -158,50 +150,62 @@ export function HangingAboutBanner() {
         return;
       }
 
-      const m = mouseState.current;
-      m.vx *= 0.94;
-      m.vy *= 0.94;
+      // Single Unified Body Spring (bounces String and all Letters as a cohesive body)
+      const bs = bodySpring.current;
+      let curDisplacementY = 0;
+      let curAngleOffset = 0;
 
+      if (bs.hasStarted) {
+        // Target displacement: slight pull up (-8px) if hovering, 0 when resting
+        const targetY = bs.hoverActiveCount > 0 ? -9 : 0;
+        
+        // Elastic, slower, multiple diminishing harmonic oscillations
+        const springK = 0.015;
+        const damping = 0.965;
+        const forceY = -springK * (bs.displacementY - targetY);
+        bs.velocityY = (bs.velocityY + forceY) * damping;
+        bs.displacementY += bs.velocityY;
+
+        const angleK = 0.013;
+        const angleDamping = 0.965;
+        const forceAngle = -angleK * bs.angleOffset;
+        bs.angleVelocity = (bs.angleVelocity + forceAngle) * angleDamping;
+        bs.angleOffset += bs.angleVelocity;
+
+        curDisplacementY = bs.displacementY;
+        curAngleOffset = bs.angleOffset;
+
+        // Dynamically update both rope cords to bounce with the exact same sag motion
+        const w = containerSize.w;
+        const h = containerSize.h;
+        if (cord1Ref.current) {
+          const sag1 = h * 0.76 + curDisplacementY * 1.2;
+          cord1Ref.current.setAttribute(
+            "d",
+            `M 0,${h * 0.16} Q ${w * 0.5},${sag1} ${w},${h * 0.16}`
+          );
+        }
+        if (cord2Ref.current) {
+          const sag2 = h * 0.82 + curDisplacementY * 1.15;
+          cord2Ref.current.setAttribute(
+            "d",
+            `M 0,${h * 0.20} Q ${w * 0.5},${sag2} ${w},${h * 0.22}`
+          );
+        }
+      }
+
+      // Animate all letters attached to the rope: unified vertical displacement + natural tilt
       BANNER_ITEMS.forEach((item, i) => {
         const el = cardRefs.current[i];
         if (!el) return;
-        const p = physicsState.current[i];
 
-        // Airflow calculation
-        let airTorque = 0;
-        if (m.active) {
-          const rect = el.getBoundingClientRect();
-          const centerX = rect.left + rect.width / 2;
-          const centerY = rect.top + 48; // Pin offset
-          const dx = m.x - centerX;
-          const dy = m.y - centerY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+        // Preserves exact original paper tilt + collective rope pendulum sway
+        const baseAngleDeg = item.tilt;
+        const entryAngleDeg = (curAngleOffset * 180) / Math.PI;
+        const finalDeg = baseAngleDeg + entryAngleDeg;
 
-          const AIR_RADIUS = 260;
-          if (dist < AIR_RADIUS) {
-            const proximity = Math.pow(1 - dist / AIR_RADIUS, 1.8);
-            const impulse = m.vx * 0.045 * proximity;
-            airTorque = impulse;
-          }
-        }
-
-        // Spring physics: restoring torque towards target angle
-        const displacement = p.angle - p.targetAngle;
-        const springK = 0.085; // cardStiffness
-        const damping = 0.925; // cardDamping
-
-        const restoringTorque = -springK * displacement;
-        const totalTorque = restoringTorque + airTorque;
-
-        p.velocity = (p.velocity + totalTorque) * damping;
-        p.angle += p.velocity;
-
-        // Angle clamp
-        const maxDev = (28 * Math.PI) / 180;
-        p.angle = Math.max(p.targetAngle - maxDev, Math.min(p.targetAngle + maxDev, p.angle));
-
-        const deg = (p.angle * 180) / Math.PI;
-        el.style.transform = `rotate(${deg.toFixed(2)}deg)`;
+        // All letters move with the rope as one single body
+        el.style.transform = `translateY(${curDisplacementY.toFixed(2)}px) rotate(${finalDeg.toFixed(2)}deg)`;
       });
 
       animId = requestAnimationFrame(tick);
@@ -210,12 +214,9 @@ export function HangingAboutBanner() {
     animId = requestAnimationFrame(tick);
 
     return () => {
-      window.removeEventListener("mousemove", handlePointerMove);
-      window.removeEventListener("touchmove", handlePointerMove);
-      window.removeEventListener("mouseleave", handlePointerLeave);
       cancelAnimationFrame(animId);
     };
-  }, []);
+  }, [containerSize]);
 
   // Compute card positions along string
   const totalCards = BANNER_ITEMS.length;
@@ -224,83 +225,90 @@ export function HangingAboutBanner() {
   const startX = containerSize.w / 2 - totalSpan / 2;
 
   return (
-    <section className="relative w-full pt-28 sm:pt-36 pb-12 sm:pb-16 px-4 sm:px-8 select-none overflow-hidden">
-      <div className="max-w-6xl mx-auto flex flex-col items-center">
+    <section ref={sectionRef} className="relative w-full pt-28 sm:pt-36 pb-12 sm:pb-16 select-none overflow-hidden">
+      <div className="max-w-6xl mx-auto flex flex-col items-center px-4 sm:px-8">
         {/* Handwritten subtitle: "some hobby I really love!" with Typewriter Animation */}
-        <h2 className="font-caveat font-bold text-2xl sm:text-3xl md:text-4xl text-[#111111] tracking-wide text-center mb-6 sm:mb-8">
+        <h2 className="font-caveat font-bold text-2xl sm:text-3xl md:text-4xl text-wire-black tracking-wide text-center mb-6 sm:mb-8">
           <TypewriterText text="some hobby I really love!" preset="heading" />
         </h2>
+      </div>
 
-        {/* Strings + Hanging Letters Stage */}
-        <div
-          ref={containerRef}
-          className="relative w-full h-[240px] sm:h-[300px]"
-          style={{ overflow: "visible" }}
+      {/* Strings + Hanging Letters Stage: Full viewport width edge-to-edge */}
+      <div
+        ref={containerRef}
+        className="relative w-full h-[240px] sm:h-[300px] overflow-visible"
+      >
+        {/* Two Curved Hanging String Cords spanning full screen width */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none z-0"
+          viewBox={`0 0 ${containerSize.w} ${containerSize.h}`}
+          preserveAspectRatio="none"
         >
-          {/* Two Curved Hanging String Cords matching Framer SVGs */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none z-0"
-            viewBox={`0 0 ${containerSize.w} ${containerSize.h}`}
-            preserveAspectRatio="none"
-          >
-            {/* Primary Curved Cord */}
-            <path
-              d={`M 0,${containerSize.h * 0.18} Q ${containerSize.w * 0.5},${containerSize.h * 0.76} ${containerSize.w},${containerSize.h * 0.18}`}
-              stroke="#B9B9B9"
-              strokeWidth="2"
-              fill="none"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-            {/* Secondary Companion Cord */}
-            <path
-              d={`M 0,${containerSize.h * 0.22} Q ${containerSize.w * 0.5},${containerSize.h * 0.82} ${containerSize.w},${containerSize.h * 0.24}`}
-              stroke="#E3E3E3"
-              strokeWidth="2"
-              fill="none"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
+          {/* Primary Curved Cord */}
+          <path
+            ref={cord1Ref}
+            d={`M 0,${containerSize.h * 0.16} Q ${containerSize.w * 0.5},${containerSize.h * 0.76} ${containerSize.w},${containerSize.h * 0.16}`}
+            stroke="var(--wire-cords-primary)"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
+          {/* Secondary Companion Cord */}
+          <path
+            ref={cord2Ref}
+            d={`M 0,${containerSize.h * 0.20} Q ${containerSize.w * 0.5},${containerSize.h * 0.82} ${containerSize.w},${containerSize.h * 0.22}`}
+            stroke="var(--wire-cords-secondary)"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
 
-          {/* 5 Authentic Hanging Letter Cards */}
-          {BANNER_ITEMS.map((item, idx) => {
-            const cardW = isMobile ? item.widthMobile : item.width;
-            const cardH = isMobile ? item.heightMobile : item.height;
-            const pinOffset = isMobile ? 26 : 48;
+        {/* 5 Authentic Hanging Letter Cards */}
+        {BANNER_ITEMS.map((item, idx) => {
+          const cardW = isMobile ? item.widthMobile : item.width;
+          const cardH = isMobile ? item.heightMobile : item.height;
+          const pinOffset = isMobile ? 26 : 48;
 
-            // X coordinate centered around startX
-            const posX = startX + idx * cardGap;
-            const normX = Math.max(0, Math.min(1, posX / Math.max(1, containerSize.w)));
-            const posY = getCurveY(normX, containerSize.h);
+          // X coordinate centered around startX
+          const posX = startX + idx * cardGap;
+          const normX = Math.max(0, Math.min(1, posX / Math.max(1, containerSize.w)));
+          const posY = getCurveY(normX, containerSize.h);
 
-            return (
-              <div
-                key={item.char}
-                ref={(el) => {
-                  cardRefs.current[idx] = el;
-                }}
-                className="absolute cursor-pointer will-change-transform z-10 select-none"
-                style={{
-                  left: `${posX - cardW / 2}px`,
-                  top: `${posY - pinOffset}px`,
-                  width: `${cardW}px`,
-                  height: `${cardH}px`,
-                  transformOrigin: `50% ${pinOffset}px`,
-                  transform: `rotate(${item.tilt}deg)`,
-                }}
-                title={`Hanging Letter '${item.char.toUpperCase()}'`}
-              >
-                <img
-                  src={item.src}
-                  alt={`Letter ${item.char}`}
-                  className="w-full h-full object-contain pointer-events-none select-none drop-shadow-md transition-shadow hover:drop-shadow-lg"
-                  draggable={false}
-                />
-              </div>
-            );
-          })}
-        </div>
+          return (
+            <div
+              key={item.char}
+              ref={(el) => {
+                cardRefs.current[idx] = el;
+              }}
+              className="absolute cursor-pointer will-change-transform z-10 select-none"
+              style={{
+                left: `${posX - cardW / 2}px`,
+                top: `${posY - pinOffset}px`,
+                width: `${cardW}px`,
+                height: `${cardH}px`,
+                transformOrigin: `50% ${pinOffset}px`,
+                transform: `rotate(${item.tilt}deg)`,
+              }}
+              onMouseEnter={() => {
+                bodySpring.current.hoverActiveCount += 1;
+              }}
+              onMouseLeave={() => {
+                bodySpring.current.hoverActiveCount = Math.max(0, bodySpring.current.hoverActiveCount - 1);
+              }}
+              title={`Hanging Letter '${item.char.toUpperCase()}'`}
+            >
+              <img
+                src={item.src}
+                alt={`Letter ${item.char}`}
+                className="w-full h-full object-contain pointer-events-none select-none drop-shadow-md transition-shadow hover:drop-shadow-lg"
+                draggable={false}
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -698,7 +706,7 @@ export function WorkPrinciplesSection() {
     <section className="relative w-full mt-16 sm:mt-28 pt-24 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 md:px-14 bg-wire-bg select-none">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         {/* Centered Oversized Brush-Style Heading with Typewriter Effect */}
-        <h2 className="font-marker text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#111111] leading-tight text-center tracking-tight uppercase mb-12 sm:mb-20">
+        <h2 className="font-marker text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-wire-black leading-tight text-center tracking-tight uppercase mb-12 sm:mb-20">
           <TypewriterText text="WHAT DIVE INTO" preset="heading" />
           <br />
           <TypewriterText text="MY WORK?" preset="heading" delayMs={300} />
@@ -844,11 +852,11 @@ export function ExperienceSection() {
         
         {/* Section Heading: "MY EXPERIENCE" */}
         <div className="flex flex-col items-center text-center mb-10 sm:mb-14">
-          <h2 className="font-marker text-4xl sm:text-5xl md:text-6xl text-[#111111] tracking-tight uppercase">
+          <h2 className="font-marker text-4xl sm:text-5xl md:text-6xl text-wire-black tracking-tight uppercase">
             <TypewriterText text="MY EXPERIENCE" preset="heading" />
           </h2>
           <div className="mt-2 w-32 h-1 overflow-hidden">
-            <img src="/assets/mVqvbTUbNChN4quMJjltePhW1A.svg" alt="" className="w-full h-full object-fill" />
+            <img src="/assets/mVqvbTUbNChN4quMJjltePhW1A.svg" alt="" className="w-full h-full object-fill" style={{ filter: "var(--wire-invert-filter)" }} />
           </div>
         </div>
 

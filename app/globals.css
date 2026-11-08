@@ -146,7 +146,7 @@ html.theme-transition *::after {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
     max-width: 100vw;
   }
@@ -155,7 +155,7 @@ html.theme-transition *::after {
     background-color: var(--wire-bg);
     color: var(--wire-black);
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
     max-width: 100vw;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;

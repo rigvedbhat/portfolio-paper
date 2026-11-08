@@ -43,14 +43,15 @@ export function ContactSection() {
       const currentScroll = -rect.top;
       const rawProgress = Math.max(0, Math.min(1, currentScroll / totalScroll));
 
-      // Scrub window: starts opening at 5% scroll, reaches full 180deg open flat at 75% scroll
+      // Scrub window: starts opening at 2% scroll, reaches full 180deg open flat at 32% scroll,
+      // and STAYS firmly pinned in place all the way to 88% scroll for comfortable reading & interaction.
       let openProgress = 0;
-      if (rawProgress <= 0.05) {
+      if (rawProgress <= 0.02) {
         openProgress = 0;
-      } else if (rawProgress >= 0.75) {
+      } else if (rawProgress >= 0.32) {
         openProgress = 1;
       } else {
-        openProgress = (rawProgress - 0.05) / (0.75 - 0.05);
+        openProgress = (rawProgress - 0.02) / (0.32 - 0.02);
       }
 
       // 1. Cover 3D rotation from 0deg (closed) to -180deg (flat open on left)
@@ -92,7 +93,7 @@ export function ContactSection() {
     <section
       ref={containerRef}
       id="contact"
-      className="relative w-full h-[230vh] bg-wire-bg select-none"
+      className="relative w-full h-[320vh] bg-wire-bg"
     >
       {/* Sticky Viewport Stage: remains pinned in viewport center while scrolling */}
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-6">

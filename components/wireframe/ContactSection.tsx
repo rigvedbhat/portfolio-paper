@@ -380,9 +380,9 @@ export function ContactSection() {
                 {/* Big Doodle Avatar Face in center of yellow page (Image 2) */}
                 <div className="w-28 h-28 xs:w-40 xs:h-40 sm:w-64 sm:h-64 lg:w-72 lg:h-72 flex items-center justify-center mb-1 xs:mb-3">
                   <img
-                    src="/rigved-illustration.jpg"
+                    src="/rigved-avatar.png"
                     alt="Rigved Avatar"
-                    className="w-full h-full object-contain pointer-events-none select-none mix-blend-multiply"
+                    className="w-full h-full object-contain pointer-events-none select-none"
                     draggable={false}
                   />
                 </div>

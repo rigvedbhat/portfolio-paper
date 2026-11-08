@@ -28,14 +28,12 @@ export function Header() {
         style={{ transform: "rotate(-2.2deg)" }}
         title="Rig - Home"
       >
-        <div className="w-4 h-4 sm:w-7 sm:h-7 rounded-full overflow-hidden border border-[#111111] flex-shrink-0 bg-[#ffe500] flex items-center justify-center">
-          <img
-            src="/rigved-illustration.jpg"
-            alt="Rig Avatar Doodle"
-            className="w-full h-full object-cover select-none pointer-events-none scale-125"
-            draggable={false}
-          />
-        </div>
+        <img
+          src="/rigved-avatar.png"
+          alt="Rig Avatar Doodle"
+          className="w-4 h-4 sm:w-7 sm:h-7 object-contain select-none pointer-events-none"
+          draggable={false}
+        />
         <span className="font-marker text-xs sm:text-xl text-[#111111] tracking-wider select-none leading-none">
           <TypewriterText text="RIG" preset="nav" />
         </span>

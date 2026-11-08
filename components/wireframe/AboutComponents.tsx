@@ -569,11 +569,11 @@ export function ScatteredBioSection() {
             <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-12 h-3.5 bg-white/70 border border-black/10 backdrop-blur-xs -rotate-2" />
 
             {/* Avatar doodle face */}
-            <div className="w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0 rounded-full overflow-hidden border border-[#111111]/40 bg-[#ffe500] flex items-center justify-center">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0 flex items-center justify-center">
               <img
-                src="/rigved-illustration.jpg"
+                src="/rigved-avatar.png"
                 alt="Avatar"
-                className="w-full h-full object-cover pointer-events-none scale-125"
+                className="w-full h-full object-contain pointer-events-none"
                 draggable={false}
               />
             </div>

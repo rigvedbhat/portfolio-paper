@@ -240,14 +240,12 @@ export function HeroSection() {
 
               {/* Hand-drawn doodle face icon at top-left of card */}
               <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-20">
-                <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full overflow-hidden border border-[#111111] bg-[#ffe500] flex items-center justify-center">
-                  <img
-                    src="/rigved-illustration.jpg"
-                    alt="Rigved Doodle Avatar"
-                    className="w-full h-full object-cover select-none pointer-events-none scale-125"
-                    draggable={false}
-                  />
-                </div>
+                <img
+                  src="/rigved-avatar.png"
+                  alt="Rigved Doodle Avatar"
+                  className="w-4 h-4 sm:w-5 sm:h-5 object-contain select-none pointer-events-none"
+                  draggable={false}
+                />
               </div>
 
               {/* Angled Yellow Sticky Note taped across top of photo */}

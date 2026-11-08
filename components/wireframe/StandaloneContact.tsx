@@ -57,11 +57,11 @@ export function StandaloneContact() {
               <div className="absolute -top-2 left-6 w-10 h-3 bg-white/70 border border-black/10 backdrop-blur-xs -rotate-2" />
 
               {/* Boy doodle avatar on sticky note */}
-              <div className="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 bg-[#ffe500] rounded-full border border-[#111111]/30 overflow-hidden flex items-center justify-center">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center">
                 <img
-                  src="/rigved-illustration.jpg"
+                  src="/rigved-avatar.png"
                   alt="Avatar"
-                  className="w-full h-full object-cover pointer-events-none scale-125"
+                  className="w-full h-full object-contain pointer-events-none"
                   draggable={false}
                 />
               </div>

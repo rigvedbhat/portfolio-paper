@@ -145,9 +145,9 @@ export function HeroSection() {
       id="about"
       className="relative min-h-[820px] sm:min-h-[880px] md:min-h-[940px] pt-0 pb-16 sm:pb-24 flex flex-col items-center justify-start overflow-hidden bg-wire-bg select-none w-full max-w-full"
     >
-      {/* 1. Large Pale-Yellow Handwritten Background Typography ("ux designer" in Caveat script) */}
+      {/* 1. Large Pale-Yellow Handwritten Background Typography ("Aspiring AI Engineer" in Caveat script) */}
       <div
-        className="absolute top-[32%] sm:top-[30%] md:top-[28%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1300px] px-2 sm:px-6 flex items-center justify-center pointer-events-none z-0 overflow-hidden"
+        className="absolute top-[32%] sm:top-[30%] md:top-[28%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1300px] px-4 sm:px-6 flex items-center justify-center pointer-events-none z-0 overflow-hidden"
         style={{
           opacity: watermarkOpacity,
           transform: `translate(-50%, calc(-50% + ${watermarkTranslateY}px))`,
@@ -155,12 +155,12 @@ export function HeroSection() {
         }}
       >
         <h2
-          className="font-caveat font-normal text-[clamp(90px,18vw,290px)] text-[#ffe500] leading-[0.85] tracking-[-0.02em] whitespace-nowrap text-center select-none"
+          className="font-caveat font-normal text-[clamp(48px,9.5vw,140px)] text-[#ffe500] leading-[0.95] tracking-[-0.02em] whitespace-nowrap text-center select-none"
           style={{
             textShadow: "0 2px 20px rgba(255, 229, 0, 0.2)",
           }}
         >
-          ux designer
+          Aspiring AI Engineer
         </h2>
       </div>
 
@@ -241,8 +241,8 @@ export function HeroSection() {
               <div className="relative w-full aspect-[4/4.3] bg-[#ffffff] rounded-md p-1.5 sm:p-2 border border-[#111111]/20 shadow-xs flex flex-col overflow-hidden">
                 <div className="relative w-full flex-1 rounded overflow-hidden bg-[#e8e4dc]">
                   <img
-                    src="/assets/john-portrait.webp"
-                    alt="John with vintage camera"
+                    src="/rigved-id.png"
+                    alt="Rigved - Aspiring AI Engineer"
                     className="w-full h-full object-cover object-center select-none pointer-events-none"
                     draggable={false}
                   />
@@ -256,7 +256,7 @@ export function HeroSection() {
       {/* Spacer to push headline comfortably below the hanging card with ample breathing room */}
       <div className="h-[450px] sm:h-[480px] md:h-[510px]" />
 
-      {/* 3. Primary Heading Below Badge: "I'M JOHN" with Scroll-Triggered Typing Animation */}
+      {/* 3. Primary Heading Below Badge: "I'M RIGVED (RIG)" with Scroll-Triggered Typing Animation */}
       <div
         className="flex flex-col items-center text-center px-4 max-w-4xl z-10 mt-6 sm:mt-8"
         style={{
@@ -264,16 +264,16 @@ export function HeroSection() {
           transition: "opacity 0.1s ease-out",
         }}
       >
-        <h1 className="font-marker text-5xl sm:text-7xl md:text-8xl lg:text-[100px] text-[var(--wire-text-primary)] leading-[0.9] tracking-tight uppercase select-none transition-colors duration-300">
-          <TypewriterText text="I'M JOHN" delayMs={300} speedMs={60} />
+        <h1 className="font-marker text-4xl sm:text-6xl md:text-7xl lg:text-[88px] text-[var(--wire-text-primary)] leading-[0.95] tracking-tight uppercase select-none transition-colors duration-300">
+          <TypewriterText text="I'M RIGVED (RIG)" delayMs={300} speedMs={50} />
         </h1>
 
         {/* 4. Subtitle in Patrick Hand font with Typewriter Reveal */}
         <p className="mt-4 sm:mt-5 font-hand text-base sm:text-xl md:text-2xl text-[var(--wire-text-secondary)] leading-relaxed max-w-3xl px-2 transition-colors duration-300">
           <TypewriterText
-            text="A product designer in Chicago who gets excited about making complicated things simple"
-            delayMs={700}
-            speedMs={20}
+            text="An aspiring AI Engineer based in Kolhapur, India, who enjoys experimenting with intelligent systems, building useful products, and turning ambitious ideas into working prototypes."
+            delayMs={650}
+            speedMs={15}
           />
         </p>
       </div>

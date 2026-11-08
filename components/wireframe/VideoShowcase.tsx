@@ -44,42 +44,39 @@ export function VideoShowcase() {
       <div className="w-full max-w-5xl">
         <BeveledSketchFrame aspectRatio="16/9">
           {/* Media Player Display */}
-          <div
-            className="relative w-full h-full bg-[#1e1c18] cursor-pointer flex items-center justify-center overflow-hidden group"
-            onClick={() => setIsPlaying(!isPlaying)}
-          >
-            {/* Artistic Painting / Studio Canvas Visual (warm palette matching reference) */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#993322] via-[#d65a31] to-[#f49d37] opacity-90 flex items-center justify-center">
-              {/* Painterly texture and brush strokes */}
-              <svg className="absolute inset-0 w-full h-full opacity-35" xmlns="http://www.w3.org/2000/svg">
-                <filter id="canvas-grain">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
-                  <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.5 0" />
-                </filter>
-                <rect width="100%" height="100%" filter="url(#canvas-grain)" />
-              </svg>
-
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-                <div className="w-72 h-72 rounded-full border-4 border-white/40 blur-xs" />
-              </div>
-            </div>
-
-            {/* Central Hand-Drawn White Play Button (sketched oval + play triangle) */}
+          <div className="relative w-full h-full bg-[#000000] flex items-center justify-center overflow-hidden">
             {!isPlaying ? (
-              <div className="relative z-20 flex flex-col items-center gap-2">
-                <HandDrawnPlayButton />
+              <div
+                className="relative w-full h-full cursor-pointer flex items-center justify-center group"
+                onClick={() => setIsPlaying(true)}
+              >
+                {/* Poster / Video preview backdrop */}
+                <img
+                  src="/video-poster.jpg"
+                  alt="Video Showcase Preview"
+                  className="absolute inset-0 w-full h-full object-contain bg-black select-none pointer-events-none"
+                  draggable={false}
+                />
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
+
+                {/* Central Hand-Drawn White Play Button (sketched oval + play triangle) */}
+                <div className="relative z-20 flex flex-col items-center gap-2 transform transition-transform group-hover:scale-110">
+                  <HandDrawnPlayButton />
+                </div>
               </div>
             ) : (
-              <div className="relative z-20 flex flex-col items-center gap-3 bg-black/60 backdrop-blur-xs p-6 rounded-2xl border border-white/20">
-                <div className="flex items-center gap-3 text-white font-mono text-sm sm:text-base">
-                  <span className="w-3 h-3 rounded-full bg-red-500 animate-pulse" />
-                  <span>PLAYING SHOWCASE [00:14 / 01:45]</span>
-                </div>
-                <div className="w-48 sm:w-64 h-1.5 bg-white/30 rounded-full overflow-hidden">
-                  <div className="w-1/3 h-full bg-wire-yellow rounded-full animate-pulse" />
-                </div>
-                <span className="font-caveat font-bold text-white text-base">Click to pause</span>
-              </div>
+              <video
+                src="/Featured-vid.mp4"
+                className="w-full h-full object-contain bg-black"
+                controls
+                autoPlay
+                playsInline
+                preload="auto"
+              >
+                <source src="/Featured-vid.mp4" type="video/mp4" />
+                <source src="/Featured-vid.mov" type="video/quicktime" />
+                Your browser does not support the video tag.
+              </video>
             )}
           </div>
         </BeveledSketchFrame>

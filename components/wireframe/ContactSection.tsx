@@ -235,10 +235,10 @@ export function ContactSection() {
                 <div className="pt-4 border-t border-[#111111]/15 flex items-center justify-between text-sm sm:text-base font-caveat font-bold w-full">
                   <div className="flex flex-col">
                     <a
-                      href="mailto:john@gmail.com"
+                      href="mailto:rigvedmb2@gmail.com"
                       className="text-[#111111] hover:underline whitespace-nowrap"
                     >
-                      <TypewriterText text="john@gmail.com" preset="fast" />
+                      <TypewriterText text="rigvedmb2@gmail.com" preset="fast" />
                     </a>
                     <div className="w-full h-1 overflow-hidden -mt-0.5">
                       <img src="/assets/mVqvbTUbNChN4quMJjltePhW1A.svg" alt="" className="w-full h-full object-fill" />
@@ -248,7 +248,7 @@ export function ContactSection() {
                   <div className="flex items-center gap-6">
                     <div className="flex flex-col">
                       <a
-                        href="https://instagram.com"
+                        href="https://www.instagram.com/rigved.bhat/?hl=en"
                         target="_blank"
                         rel="noreferrer"
                         className="text-[#111111] hover:underline lowercase"
@@ -262,12 +262,12 @@ export function ContactSection() {
 
                     <div className="flex flex-col">
                       <a
-                        href="https://facebook.com"
+                        href="https://www.linkedin.com/in/rigved-bhat-b4b46332a/"
                         target="_blank"
                         rel="noreferrer"
                         className="text-[#111111] hover:underline lowercase"
                       >
-                        <TypewriterText text="facebook" preset="fast" />
+                        <TypewriterText text="linkedin" preset="fast" />
                       </a>
                       <div className="w-full h-1 overflow-hidden -mt-0.5">
                         <img src="/assets/mVqvbTUbNChN4quMJjltePhW1A.svg" alt="" className="w-full h-full object-fill" />
@@ -364,7 +364,7 @@ export function ContactSection() {
               </div>
 
               {/* ------------------------------------------------------ */}
-              {/* B. INSIDE OF COVER: Big Boy Doodle Avatar + "I'M JOHN"  */}
+              {/* B. INSIDE OF COVER: Big Boy Doodle Avatar + "I'M RIGVED" */}
               {/*    (Exact Reference Image 2)                           */}
               {/* ------------------------------------------------------ */}
               <div
@@ -380,15 +380,15 @@ export function ContactSection() {
                 <div className="w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 flex items-center justify-center mb-3">
                   <img
                     src="/assets/fNwIMs4sIdKKKRacWGUdjywxvk.svg"
-                    alt="John Avatar"
+                    alt="Rigved Avatar"
                     className="w-full h-full object-contain pointer-events-none select-none"
                     draggable={false}
                   />
                 </div>
 
-                {/* "I'M JOHN" directly below the face (Image 2) */}
+                {/* "I'M RIGVED" directly below the face (Image 2) */}
                 <h3 className="font-marker text-3xl sm:text-4xl lg:text-5xl text-[#111111] tracking-wide uppercase select-none">
-                  <TypewriterText text="I'M JOHN" preset="heading" delayMs={200} />
+                  <TypewriterText text="I'M RIGVED" preset="heading" delayMs={200} />
                 </h3>
               </div>
             </div>

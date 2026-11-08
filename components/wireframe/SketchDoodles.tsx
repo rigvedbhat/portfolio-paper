@@ -382,11 +382,12 @@ export function BeveledSketchFrame({
 
       {/* Inner Image Frame */}
       <div
-        className="relative z-0 w-full overflow-hidden sketch-subtle transition-colors duration-300"
+        className="relative z-0 w-full overflow-hidden transition-colors duration-300"
         style={{
           aspectRatio,
           border: "2px solid var(--wire-border)",
           backgroundColor: "var(--wire-bg)",
+          filter: "none",
         }}
       >
         {children}

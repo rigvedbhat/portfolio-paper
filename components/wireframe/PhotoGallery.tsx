@@ -6,19 +6,28 @@ import { TypewriterText } from "./TypewriterText";
 
 interface PhotoSlide {
   id: number;
-  palette: string;
+  src: string;
   label: string;
 }
 
 const initialPhotos: PhotoSlide[] = [
-  { id: 1, palette: "from-[#833ab4] via-[#fd1d1d] to-[#fcb045]", label: "Mountain Lake & Wildflowers" },
-  { id: 2, palette: "from-[#0077b6] via-[#00b4d8] to-[#90e0ef]", label: "Solitary Tree in Meadow" },
-  { id: 3, palette: "from-[#2b9348] via-[#55a630] to-[#80b918]", label: "Hilltop Observation Deck" },
-  { id: 4, palette: "from-[#f77f00] via-[#fcbf49] to-[#eae2b7]", label: "Sunset Dune Horizon" },
-  { id: 5, palette: "from-[#1d3557] via-[#457b9d] to-[#a8dadc]", label: "Ocean Shoreline Surf" },
-  { id: 6, palette: "from-[#6a040f] via-[#9d0208] to-[#d00000]", label: "Autumn Crimson Canopy" },
-  { id: 7, palette: "from-[#3d5a80] via-[#98c1d9] to-[#e0fbfc]", label: "Winter Alpine Ridge" },
-  { id: 8, palette: "from-[#588157] via-[#3a5a40] to-[#344e41]", label: "Moss Forest Pathway" },
+  { id: 1, src: "/portfolio-images/IMG_20261107_115007_484.jpg", label: "Street Perspective" },
+  { id: 2, src: "/portfolio-images/IMG_20261107_115039_666.jpg", label: "Golden Hour Glow" },
+  { id: 3, src: "/portfolio-images/IMG_20261107_115043_726.jpg", label: "Wanderer's Lens" },
+  { id: 4, src: "/portfolio-images/IMG_20261107_115213_886.jpg", label: "Architecture in Motion" },
+  { id: 5, src: "/portfolio-images/IMG_20261107_115344_243.jpg", label: "Shadow & Light" },
+  { id: 6, src: "/portfolio-images/IMG_20261107_115436_302.jpg", label: "Urban Moments" },
+  { id: 7, src: "/portfolio-images/IMG_20261107_115439_140.jpg", label: "Quiet Corners" },
+  { id: 8, src: "/portfolio-images/IMG_20261107_115443_206.jpg", label: "Framed Stories" },
+  { id: 9, src: "/portfolio-images/IMG_20261107_115447_910.jpg", label: "Reflections" },
+  { id: 10, src: "/portfolio-images/IMG_20261107_115454_166.jpg", label: "Candid Stillness" },
+  { id: 11, src: "/portfolio-images/IMG_20261107_115458_200.jpg", label: "Through The Looking Glass" },
+  { id: 12, src: "/portfolio-images/IMG_20261107_115501_388.jpg", label: "Textures of Life" },
+  { id: 13, src: "/portfolio-images/IMG_20261107_115504_837.jpg", label: "Monochrome & Mood" },
+  { id: 14, src: "/portfolio-images/IMG_20261107_115507_481.jpg", label: "Chasing Shadows" },
+  { id: 15, src: "/portfolio-images/IMG_20261107_115529_551.jpg", label: "Fleeting Moments" },
+  { id: 16, src: "/portfolio-images/IMG_20261107_115630_580.jpg", label: "Geometry & Flow" },
+  { id: 17, src: "/portfolio-images/IMG_20261107_115639_348.jpg", label: "Sunset Trail" },
 ];
 
 export function PhotoGallery() {
@@ -106,22 +115,25 @@ export function PhotoGallery() {
 
               {/* Photo Canvas Display */}
               <div className="relative z-10 flex-1 rounded-lg overflow-hidden bg-black flex items-center justify-center">
-                <div className={`w-full h-full bg-gradient-to-tr ${currentPhoto.palette} flex items-end p-4 transition-all duration-300`}>
+                <div className="relative w-full h-full flex items-end p-4 transition-all duration-300">
+                  <img
+                    src={currentPhoto.src}
+                    alt="Photograph"
+                    className="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none"
+                    draggable={false}
+                  />
                   {/* Subtle film grain */}
-                  <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
+                  <svg className="absolute inset-0 w-full h-full opacity-15 pointer-events-none">
                     <filter id="film-grain">
                       <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" result="noise" />
                     </filter>
                     <rect width="100%" height="100%" filter="url(#film-grain)" />
                   </svg>
-                  <span className="relative z-10 font-hand text-sm sm:text-base text-white/90 bg-black/40 px-2 py-0.5 rounded">
-                    {currentPhoto.label}
-                  </span>
                 </div>
 
                 {/* Shutter Flash Animation Overlay */}
                 {isFlashing && (
-                  <div className="absolute inset-0 bg-white z-30 animate-camFlash pointer-events-none" />
+                  <div className="absolute inset-0 bg-white z-30 animate-cam-flash pointer-events-none" />
                 )}
               </div>
             </div>
@@ -187,10 +199,14 @@ export function PhotoGallery() {
           {photoList.slice(currentIndex + 1, currentIndex + 3).map((p, idx) => (
             <div
               key={p.id}
-              className="w-44 aspect-[4/3] bg-white p-2 rounded-lg border-2 border-[#383530] shadow-md flex-shrink-0"
+              className="w-44 aspect-[4/3] bg-white p-2 rounded-lg border-2 border-[#383530] shadow-md flex-shrink-0 overflow-hidden"
               style={{ transform: idx === 1 ? "rotate(2deg)" : "rotate(-1deg)" }}
             >
-              <div className={`w-full h-full rounded bg-gradient-to-tr ${p.palette}`} />
+              <img
+                src={p.src}
+                alt={p.label}
+                className="w-full h-full rounded object-cover object-center"
+              />
             </div>
           ))}
         </div>

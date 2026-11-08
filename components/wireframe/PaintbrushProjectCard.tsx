@@ -9,10 +9,38 @@ export interface ProjectCardData {
   title: string;
   category: string;
   image: string;
+  link?: string;
   rotation?: string;
   offsetY?: string;
   stickyNote?: string;
   arrowNote?: { text: string; direction: "up" | "left" | "right" | "down-left" };
+}
+
+function FrameContainer({
+  link,
+  children,
+}: {
+  link?: string;
+  children: React.ReactNode;
+}) {
+  const className =
+    "relative w-full aspect-[1144/650] flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.015]" +
+    (link ? " cursor-pointer" : "");
+
+  if (link) {
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  return <div className={className}>{children}</div>;
 }
 
 export function PaintbrushProjectCard({ proj }: { proj: ProjectCardData }) {
@@ -107,7 +135,7 @@ export function PaintbrushProjectCard({ proj }: { proj: ProjectCardData }) {
       )}
 
       {/* Authentic Picture Frame */}
-      <div className="relative w-full aspect-[1144/650] flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.015]">
+      <FrameContainer link={proj.link}>
         {/* Inner Canvas Area (Photo + Wireframe Background) */}
         <div
           className="relative w-full h-full border-[3px] border-double transform rotate-1 overflow-hidden shadow-sm transition-colors duration-300"
@@ -230,13 +258,26 @@ export function PaintbrushProjectCard({ proj }: { proj: ProjectCardData }) {
             />
           </svg>
         </div>
-      </div>
+      </FrameContainer>
 
       {/* Project Title & Category Bar Beneath Frame */}
       <div className="mt-2.5 sm:mt-3 px-1 flex items-center justify-between">
-        <h3 className="font-hand text-xl sm:text-2xl md:text-3xl text-[var(--wire-text-primary)] font-medium tracking-wide transition-colors duration-300">
-          <TypewriterText text={proj.title} delayMs={150} speedMs={40} />
-        </h3>
+        {proj.link ? (
+          <a
+            href={proj.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline cursor-pointer"
+          >
+            <h3 className="font-hand text-xl sm:text-2xl md:text-3xl text-[var(--wire-text-primary)] font-medium tracking-wide transition-colors duration-300">
+              <TypewriterText text={proj.title} delayMs={150} speedMs={40} />
+            </h3>
+          </a>
+        ) : (
+          <h3 className="font-hand text-xl sm:text-2xl md:text-3xl text-[var(--wire-text-primary)] font-medium tracking-wide transition-colors duration-300">
+            <TypewriterText text={proj.title} delayMs={150} speedMs={40} />
+          </h3>
+        )}
 
         <div
           className="px-3 sm:px-4 py-0.5 rounded-full sketch-wobble transition-colors duration-300"

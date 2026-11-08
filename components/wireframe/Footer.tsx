@@ -16,7 +16,7 @@ export function Footer() {
 
       <div className="max-w-4xl w-full text-center flex flex-col items-center overflow-hidden">
         {/* Navigation & Contact Links in Caveat font */}
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 font-caveat font-bold text-lg sm:text-2xl text-wire-muted mb-6 sm:mb-8">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 font-caveat font-bold text-lg sm:text-2xl text-wire-muted">
           <Link href="/about" className="hover:text-wire-black hover:underline">
             <TypewriterText text="about" preset="fast" />
           </Link>
@@ -30,21 +30,11 @@ export function Footer() {
           </Link>
           <span className="opacity-40">/</span>
           <a
-            href="mailto:john@gmail.com"
+            href="mailto:rigvedmb2@gmail.com"
             className="hover:text-white hover:underline text-wire-black"
           >
-            <TypewriterText text="john@gmail.com" preset="fast" />
+            <TypewriterText text="rigvedmb2@gmail.com" preset="fast" />
           </a>
-        </div>
-
-        {/* Bottom Attribution & Copyright */}
-        <div className="pt-4 sm:pt-6 border-t border-[#383530]/60 w-full flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs font-mono text-[#76736b] gap-2 text-center">
-          <span>
-            <TypewriterText text="© 2026 WIREFRAME PORTFOLIO • VISUAL RECREATION" preset="fast" />
-          </span>
-          <span>
-            <TypewriterText text="WIREFRAME BY HUEHAUS STUDIO (RECREATION)" preset="fast" />
-          </span>
         </div>
       </div>
     </footer>

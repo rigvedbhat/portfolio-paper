@@ -257,10 +257,10 @@ export function StandaloneContact() {
                 {/* Email link with hand-drawn underline */}
                 <div className="flex flex-col">
                   <a
-                    href="mailto:john@wireframe.design"
+                    href="mailto:rigvedmb2@gmail.com"
                     className="font-caveat font-bold text-lg sm:text-xl text-wire-black hover:text-wire-yellow transition-colors select-none"
                   >
-                    <TypewriterText text="john@wireframe.design" preset="fast" />
+                    <TypewriterText text="rigvedmb2@gmail.com" preset="fast" />
                   </a>
                   <div className="w-full h-1.5 overflow-hidden -mt-0.5">
                     <img
@@ -275,9 +275,8 @@ export function StandaloneContact() {
                 {/* Social Links with hand-drawn underlines */}
                 <div className="flex items-center gap-4">
                   {[
-                    { name: "instagram", href: "https://instagram.com" },
-                    { name: "x / twitter", href: "https://x.com" },
-                    { name: "linkedin", href: "https://linkedin.com" },
+                    { name: "instagram", href: "https://www.instagram.com/rigved.bhat/?hl=en" },
+                    { name: "linkedin", href: "https://www.linkedin.com/in/rigved-bhat-b4b46332a/" },
                   ].map((s) => (
                     <div key={s.name} className="flex flex-col">
                       <a

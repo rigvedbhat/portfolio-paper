@@ -21,21 +21,21 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 w-full z-50 px-4 sm:px-8 md:px-14 py-3 sm:py-5 flex items-center justify-between pointer-events-none">
-      {/* Hand-drawn Logo on Left: Box with Boy Doodle Face + JOHN */}
+      {/* Hand-drawn Logo on Left: Box with Boy Doodle Face + RIG */}
       <Link
         href="/"
         className="pointer-events-auto group inline-flex items-center gap-2 sm:gap-2.5 px-3 py-1 sm:px-4 sm:py-1.5 bg-white border-2 border-[#111111] rounded-[8px] shadow-xs hover:scale-105 transition-transform duration-200 select-none"
         style={{ transform: "rotate(-2.2deg)" }}
-        title="John - Home"
+        title="Rig - Home"
       >
         <img
           src="/assets/fNwIMs4sIdKKKRacWGUdjywxvk.svg"
-          alt="John Avatar Doodle"
+          alt="Rig Avatar Doodle"
           className="w-6 h-6 sm:w-7 sm:h-7 object-contain select-none pointer-events-none"
           draggable={false}
         />
         <span className="font-marker text-base sm:text-xl text-[#111111] tracking-wider select-none leading-none">
-          <TypewriterText text="JOHN" preset="nav" />
+          <TypewriterText text="RIG" preset="nav" />
         </span>
       </Link>
 

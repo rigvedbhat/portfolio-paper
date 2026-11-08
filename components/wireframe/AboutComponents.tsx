@@ -227,9 +227,9 @@ export function HangingAboutBanner() {
   return (
     <section ref={sectionRef} className="relative w-full pt-28 sm:pt-36 pb-12 sm:pb-16 select-none overflow-hidden">
       <div className="max-w-6xl mx-auto flex flex-col items-center px-4 sm:px-8">
-        {/* Handwritten subtitle: "some hobby I really love!" with Typewriter Animation */}
+        {/* Handwritten subtitle: "Big Time Foodie :P" with Typewriter Animation */}
         <h2 className="font-caveat font-bold text-2xl sm:text-3xl md:text-4xl text-wire-black tracking-wide text-center mb-6 sm:mb-8">
-          <TypewriterText text="some hobby I really love!" preset="heading" />
+          <TypewriterText text="Big Time Foodie :P" preset="heading" />
         </h2>
       </div>
 
@@ -359,7 +359,7 @@ export function HobbyCardsSection() {
 
                 {/* Caption (framer-d3byl7) */}
                 <p className="font-caveat font-bold text-lg sm:text-xl text-[#111111] leading-snug text-left">
-                  <TypewriterText text="Just meeee and the mountainsss!!!" preset="caption" />
+                  <TypewriterText text="A breakfast worth waking up for." preset="caption" />
                 </p>
               </div>
             </div>
@@ -373,8 +373,8 @@ export function HobbyCardsSection() {
               }}
             >
               <img
-                src="/assets/sATgsP34lR83MiF196uhr9M4HDo.png"
-                alt="Mountain Lake"
+                src="/about-1.jpg"
+                alt="Breakfast"
                 className="w-full h-full object-cover select-none pointer-events-none"
                 draggable={false}
               />
@@ -410,7 +410,7 @@ export function HobbyCardsSection() {
 
                 {/* Caption (framer-140t14w) */}
                 <p className="font-caveat font-bold text-lg sm:text-xl text-[#111111] leading-snug text-center w-full">
-                  <TypewriterText text="Golden hour crewwww" preset="caption" />
+                  <TypewriterText text="One more bite. Okay, maybe five." preset="caption" />
                 </p>
               </div>
             </div>
@@ -425,8 +425,8 @@ export function HobbyCardsSection() {
               }}
             >
               <img
-                src="/assets/Ftnt01le1kkib13zeUVutJTwUnQ.png"
-                alt="Golden Hour Crew"
+                src="/about-2.jpg"
+                alt="Tiramisu"
                 className="w-full h-full object-cover select-none pointer-events-none"
                 draggable={false}
               />
@@ -462,7 +462,7 @@ export function HobbyCardsSection() {
 
                 {/* Caption (framer-13yckg9) */}
                 <p className="font-caveat font-bold text-lg sm:text-xl text-[#111111] leading-snug text-center w-full">
-                  <TypewriterText text="Too tired to standd." preset="caption" />
+                  <TypewriterText text="Happiness is round, cheesy and slightly overpriced." preset="caption" />
                 </p>
               </div>
             </div>
@@ -476,8 +476,8 @@ export function HobbyCardsSection() {
               }}
             >
               <img
-                src="/assets/Kqp9toTCFbVNz4dELfWZjQI8xw.png"
-                alt="Tennis Court"
+                src="/about-3.jpg"
+                alt="Pizza"
                 className="w-full h-full object-cover select-none pointer-events-none"
                 draggable={false}
               />
@@ -513,7 +513,7 @@ export function HobbyCardsSection() {
 
                 {/* Caption (framer-s46ilh) */}
                 <p className="font-caveat font-bold text-lg sm:text-xl text-[#111111] leading-snug text-left">
-                  <TypewriterText text="Peak visionsss onlyyy" preset="caption" />
+                  <TypewriterText text="A whole lot of happiness on one plate." preset="caption" />
                 </p>
               </div>
             </div>
@@ -527,8 +527,8 @@ export function HobbyCardsSection() {
               }}
             >
               <img
-                src="/assets/sATgsP34lR83MiF196uhr9M4HDo.png"
-                alt="Peak visions"
+                src="/about-4.jpg"
+                alt="Surmai thali"
                 className="w-full h-full object-cover select-none pointer-events-none"
                 draggable={false}
               />
@@ -594,7 +594,7 @@ export function ScatteredBioSection() {
 
               <p className="font-hand text-lg sm:text-xl text-[#222222] leading-[32px] pt-1">
                 <TypewriterText
-                  text="Currently, I'm at Meridian Health working on experiences for mental health clinicians and administrators. Before that, I spent almost two years at StyleBook helping salons manage their businesses (and discovering that stylists have very strong opinions about scheduling interfaces, which I deeply respect)."
+                  text="Currently, I'm pursuing Computer Science Engineering with a specialisation in AI & ML at KIT's College of Engineering, Kolhapur. I've been exploring everything from intelligent systems and agentic AI to building products that solve actual problems. Somewhere along the way, hackathons, experiments, and a few ambitious side projects became a pretty big part of my life."
                   preset="paragraph"
                 />
               </p>
@@ -614,7 +614,7 @@ export function ScatteredBioSection() {
 
               <p className="font-hand text-lg sm:text-xl text-[#222222] leading-[32px] pt-1">
                 <TypewriterText
-                  text="When I'm not designing, you'll find me thinking about why some interfaces feel intuitive and others make you want to throw your laptop out a window. Usually with coffee."
+                  text="When I'm not building something, I'm probably gaming, taking photographs, exploring new places, or falling down another rabbit hole about technology, history, or Japanese culture. I also have a habit of questioning everyday things. Sometimes a little too much."
                   preset="paragraph"
                 />
               </p>
@@ -636,13 +636,19 @@ export function ScatteredBioSection() {
 
               <p className="font-hand text-lg sm:text-xl text-[#222222] leading-[32px] pt-1 mb-4">
                 <TypewriterText
-                  text="I spend my days designing for healthcare platforms, booking systems, and other products where 'just figure it out' isn't an option. The people using these tools are busy, stressed, and have actual work to do. My job is to get out of their way."
+                  text="I like understanding how things work, but I'm even more interested in figuring out how they could work better. Whether it's building an AI agent, experimenting with an idea, or working on a project that initially feels way over my head, I enjoy the process of turning &ldquo;what if?&rdquo; into something real."
+                  preset="paragraph"
+                />
+              </p>
+              <p className="font-hand text-lg sm:text-xl text-[#222222] leading-[32px] mb-4">
+                <TypewriterText
+                  text="I've worked on independent projects, collaborated with teams at hackathons, and explored ideas that sit somewhere between AI, software, and design. I'm still learning, still experimenting, and occasionally breaking things in the process."
                   preset="paragraph"
                 />
               </p>
               <p className="font-hand text-lg sm:text-xl text-[#222222] leading-[32px]">
                 <TypewriterText
-                  text="I've worked on teams of two and teams of twenty. I've had access to endless user research and I've had to make educated guesses with limited data. I've worked within strict component libraries and I've built design systems from scratch. What stays consistent is asking good questions, collaborating with people who know more than me, and shipping things that actually help."
+                  text="I don't really want to limit myself to one particular domain. There's too much interesting stuff happening out there to stick to just one lane. For now, I'm here to build, explore, ask better questions, and see where curiosity takes me."
                   preset="paragraph"
                 />
               </p>
@@ -666,8 +672,8 @@ export function WorkPrinciplesSection() {
   const principles = [
     {
       num: "01",
-      title: "Starting with why, not what",
-      desc: "Before wireframes, I want to know what problem we're actually solving. Sometimes what people ask for isn't what they need.",
+      title: "Curiosity before everything",
+      desc: "I rarely stop at knowing that something works. I want to know why it works, how it was built, and whether there's a better way to do it. Most of my projects start with a random question that refuses to leave my head.",
       color: "#cbe3fb",
       defaultRotate: 3,
       topOffset: "pt-0",
@@ -675,8 +681,8 @@ export function WorkPrinciplesSection() {
     },
     {
       num: "02",
-      title: "Designing for real constraints",
-      desc: "Perfect conditions don't exist, tight budgets, messy legacy systems, no access to users. I make smart calls with imperfect information.",
+      title: "Build first, figure it out along the way",
+      desc: "Not every idea comes with a roadmap. Sometimes you just have to get your hands dirty, experiment, break things, and learn as you go. I'd rather build a rough first version than spend forever imagining the perfect one.",
       color: "#fef08a",
       defaultRotate: -6,
       topOffset: "pt-10 sm:pt-14",
@@ -684,8 +690,8 @@ export function WorkPrinciplesSection() {
     },
     {
       num: "03",
-      title: "Collaboration over hero design",
-      desc: "The best work happens when designers, engineers, and product folks actually talk. Not throwing things over the wall.",
+      title: "Better things happen together",
+      desc: "Some of my most interesting learning experiences have come from hackathons and working with other people. Different perspectives, unexpected ideas, a little chaos, and eventually something coming together. That's the fun part of building as a team.",
       color: "#fbcfe8",
       defaultRotate: 5,
       topOffset: "pt-1 sm:pt-2",
@@ -693,8 +699,8 @@ export function WorkPrinciplesSection() {
     },
     {
       num: "04",
-      title: "Making the invisible visible",
-      desc: "The most impactful work isn't flashy — it's the auto-save that prevents panic, the error message that actually helps. Details build trust.",
+      title: "Stay curious, stay uncomfortable",
+      desc: "I'm not particularly interested in staying in one lane. AI, software, design, hardware, research, there's so much to explore. I want to keep taking on things that challenge what I know, even if I have to start from scratch.",
       color: "#bbf7d0",
       defaultRotate: -5,
       topOffset: "pt-12 sm:pt-16",
@@ -821,28 +827,14 @@ export function WorkPrinciplesSection() {
 export function ExperienceSection() {
   const experiences = [
     {
-      company: "Google",
-      role: "Senior Interaction Designer",
-      period: "2023 — Present",
-      location: "Chicago, IL",
-      desc: "Designing developer-facing platform tools, workflow automation builders, and design system governance primitives used across multi-product suites.",
+      company: "Discord Server Administrator",
+      role: "Freelance · Independent",
+      period: "Community Operations",
+      paragraphs: [
+        "Managed and administered Discord communities, handling server configuration, role and permission management, moderation, and community operations. Worked on creating structured server environments, maintaining community guidelines, resolving issues, and ensuring smooth day-to-day operations.",
+        "An experience that taught me a lot about community management, problem-solving, automation, and building systems that work for people.",
+      ],
       highlight: "#ffe500",
-    },
-    {
-      company: "Spotify",
-      role: "Product Designer",
-      period: "2021 — 2023",
-      location: "New York / Remote",
-      desc: "Created listening party experiences, synchronized canvas visuals, and artist profile analytics dashboards for creators and music listeners worldwide.",
-      highlight: "#86efac",
-    },
-    {
-      company: "Garena",
-      role: "UI/UX Designer",
-      period: "2019 — 2021",
-      location: "Singapore",
-      desc: "Crafted interactive web campaigns, tournament companion tools, and gamer community forums with rich micro-animations and delight details.",
-      highlight: "#fbcfe8",
     },
   ];
 
@@ -894,9 +886,11 @@ export function ExperienceSection() {
                   </span>
                 </div>
 
-                <p className="font-hand text-base sm:text-lg text-[#333333] leading-[32px] pt-1">
-                  <TypewriterText text={exp.desc} preset="paragraph" />
-                </p>
+                {exp.paragraphs.map((para, pIdx) => (
+                  <p key={pIdx} className="font-hand text-base sm:text-lg text-[#333333] leading-[32px] pt-1 mb-2">
+                    <TypewriterText text={para} preset="paragraph" />
+                  </p>
+                ))}
               </div>
             ))}
           </div>

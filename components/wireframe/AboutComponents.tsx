@@ -569,11 +569,11 @@ export function ScatteredBioSection() {
             <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-12 h-3.5 bg-white/70 border border-black/10 backdrop-blur-xs -rotate-2" />
 
             {/* Avatar doodle face */}
-            <div className="w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0 rounded-full overflow-hidden border border-[#111111]/40 bg-[#ffe500] flex items-center justify-center">
               <img
-                src="/assets/fNwIMs4sIdKKKRacWGUdjywxvk.svg"
+                src="/rigved-illustration.jpg"
                 alt="Avatar"
-                className="w-full h-full object-contain pointer-events-none"
+                className="w-full h-full object-cover pointer-events-none scale-125"
                 draggable={false}
               />
             </div>
@@ -722,9 +722,7 @@ export function WorkPrinciplesSection() {
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         {/* Centered Oversized Brush-Style Heading with Typewriter Effect */}
         <h2 className="font-marker text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-wire-black leading-tight text-center tracking-tight uppercase mb-8 sm:mb-20">
-          <TypewriterText text="WHAT DIVE INTO" preset="heading" />
-          <br />
-          <TypewriterText text="MY WORK?" preset="heading" delayMs={300} />
+          <TypewriterText text="CURIOSITY IN ACTION" preset="heading" />
         </h2>
 
         {/* Mobile Swipe Hint */}

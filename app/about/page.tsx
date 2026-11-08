@@ -31,7 +31,7 @@ export default function AboutDedicatedPage() {
       {/* 4. "a little bit about me" Sticky Note + Scattered Ruled Notebook Sheets */}
       <ScatteredBioSection />
 
-      {/* 5. "WHAT I DIVE INTO MY WORK?" 4 Working Principles with Hover-to-Foreground */}
+      {/* 5. "CURIOSITY IN ACTION" 4 Working Principles with Hover-to-Foreground */}
       <WorkPrinciplesSection />
 
       {/* 6. "MY EXPERIENCE" Notebook Section (Google, Spotify, Garena) */}

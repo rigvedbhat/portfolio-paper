@@ -220,7 +220,7 @@ export function HangingAboutBanner() {
 
   // Compute card positions along string
   const totalCards = BANNER_ITEMS.length;
-  const cardGap = isMobile ? 56 : 120;
+  const cardGap = containerSize.w < 360 ? 46 : isMobile ? 56 : 120;
   const totalSpan = (totalCards - 1) * cardGap;
   const startX = containerSize.w / 2 - totalSpan / 2;
 
@@ -268,9 +268,10 @@ export function HangingAboutBanner() {
 
         {/* 5 Authentic Hanging Letter Cards */}
         {BANNER_ITEMS.map((item, idx) => {
-          const cardW = isMobile ? item.widthMobile : item.width;
-          const cardH = isMobile ? item.heightMobile : item.height;
-          const pinOffset = isMobile ? 26 : 48;
+          const isSmallScreen = containerSize.w < 360;
+          const cardW = isSmallScreen ? 58 : isMobile ? item.widthMobile : item.width;
+          const cardH = isSmallScreen ? 66 : isMobile ? item.heightMobile : item.height;
+          const pinOffset = isSmallScreen ? 20 : isMobile ? 26 : 48;
 
           // X coordinate centered around startX
           const posX = startX + idx * cardGap;
@@ -326,7 +327,7 @@ export function HangingAboutBanner() {
 // =========================================================================
 export function HobbyCardsSection() {
   return (
-    <section className="relative w-full py-12 sm:py-20 px-4 sm:px-8 bg-wire-bg select-none">
+    <section className="relative w-full py-12 sm:py-20 px-4 sm:px-8 bg-wire-bg select-none overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 items-start">
           
@@ -375,6 +376,8 @@ export function HobbyCardsSection() {
               <img
                 src="/about-1.jpg"
                 alt="Breakfast"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover select-none pointer-events-none"
                 draggable={false}
               />
@@ -386,12 +389,12 @@ export function HobbyCardsSection() {
           {/* ================================================================= */}
           <div className="w-full flex flex-col items-center pt-8 sm:pt-14">
             {/* Header Content Container (framer-9ab13) */}
-            <div className="w-[110%] h-[100px] flex justify-center items-start relative">
+            <div className="w-full sm:w-[105%] lg:w-[110%] h-[100px] flex justify-center items-start relative">
               {/* Paper Card with Paper Clip & Caption (framer-10k44f6: 250px height, rotate 6deg) */}
               <div
                 className="relative w-full h-[250px] pt-14 pb-0 pl-10 pr-6 flex flex-col justify-start items-start select-none transition-transform duration-300 hover:rotate-0"
                 style={{
-                  transform: "rotate(6deg)",
+                  transform: "rotate(4deg) sm:rotate(6deg)",
                   backgroundImage: "url('/assets/E4yJR11KIrktjakYHV2fRanbck.svg')",
                   backgroundSize: "100% 100%",
                   backgroundRepeat: "no-repeat",
@@ -417,9 +420,9 @@ export function HobbyCardsSection() {
 
             {/* Photo Container (framer-1vz41d3: width 100%, aspect 1.05, rotate -8deg, ragged mask) */}
             <div
-              className="relative w-full aspect-[1.05] mt-2 transition-transform duration-300 hover:scale-105"
+              className="relative w-[92%] sm:w-full aspect-[1.05] mt-2 transition-transform duration-300 hover:scale-105"
               style={{
-                transform: "rotate(-8deg)",
+                transform: "rotate(-5deg) sm:rotate(-8deg)",
                 WebkitMask: "url('/assets/3ieTmRPOGWValYITWLkPubZhlkE.svg') 50% / contain no-repeat",
                 mask: "url('/assets/3ieTmRPOGWValYITWLkPubZhlkE.svg') 50% / contain no-repeat",
               }}
@@ -427,6 +430,8 @@ export function HobbyCardsSection() {
               <img
                 src="/about-2.jpg"
                 alt="Tiramisu"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover select-none pointer-events-none"
                 draggable={false}
               />
@@ -478,6 +483,8 @@ export function HobbyCardsSection() {
               <img
                 src="/about-3.jpg"
                 alt="Pizza"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover select-none pointer-events-none"
                 draggable={false}
               />
@@ -529,6 +536,8 @@ export function HobbyCardsSection() {
               <img
                 src="/about-4.jpg"
                 alt="Surmai thali"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover select-none pointer-events-none"
                 draggable={false}
               />
@@ -547,7 +556,7 @@ export function HobbyCardsSection() {
 // =========================================================================
 export function ScatteredBioSection() {
   return (
-    <section className="relative w-full mt-16 sm:mt-28 pt-24 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 md:px-14 bg-wire-bg select-none">
+    <section className="relative w-full mt-16 sm:mt-28 pt-24 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 md:px-14 bg-wire-bg select-none overflow-hidden">
       <div className="max-w-5xl mx-auto flex flex-col items-center">
         
         {/* Yellow Sticky Note with "a little bit about me" + Boy Avatar Doodle at top right */}
@@ -709,21 +718,27 @@ export function WorkPrinciplesSection() {
   ];
 
   return (
-    <section className="relative w-full mt-16 sm:mt-28 pt-24 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 md:px-14 bg-wire-bg select-none">
+    <section className="relative w-full mt-16 sm:mt-28 pt-24 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 md:px-14 bg-wire-bg select-none overflow-hidden">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         {/* Centered Oversized Brush-Style Heading with Typewriter Effect */}
-        <h2 className="font-marker text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-wire-black leading-tight text-center tracking-tight uppercase mb-12 sm:mb-20">
+        <h2 className="font-marker text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-wire-black leading-tight text-center tracking-tight uppercase mb-8 sm:mb-20">
           <TypewriterText text="WHAT DIVE INTO" preset="heading" />
           <br />
           <TypewriterText text="MY WORK?" preset="heading" delayMs={300} />
         </h2>
 
+        {/* Mobile Swipe Hint */}
+        <p className="font-caveat font-bold text-base sm:text-lg text-wire-muted -mt-4 mb-8 lg:hidden flex items-center gap-1.5 opacity-75 select-none">
+          <span>← swipe to explore principles →</span>
+        </p>
+
         {/* 4 Overlapping Cascading Notebook Paper Sheets */}
         <div
-          className="relative w-full flex justify-center items-start py-6 sm:py-10 overflow-x-auto lg:overflow-visible pb-16"
+          className="relative w-full max-w-full flex justify-start lg:justify-center items-start py-6 sm:py-10 overflow-x-auto lg:overflow-visible pb-16 touch-pan-x"
+          style={{ WebkitOverflowScrolling: "touch" }}
           onMouseLeave={() => setHoveredIndex(null)}
         >
-          <div className="flex justify-center items-start min-w-[880px] lg:min-w-0">
+          <div className="flex justify-center items-start min-w-[620px] xs:min-w-[720px] sm:min-w-[840px] lg:min-w-0 px-4 lg:px-0">
             {principles.map((card, i) => {
               const isHovered = hoveredIndex === i;
               const isAnyHovered = hoveredIndex !== null;
@@ -737,7 +752,7 @@ export function WorkPrinciplesSection() {
               return (
                 <div
                   key={card.num}
-                  className={`relative w-[210px] sm:w-[230px] md:w-[250px] flex-shrink-0 ${card.topOffset}`}
+                  className={`relative w-[155px] xs:w-[180px] sm:w-[230px] md:w-[250px] flex-shrink-0 ${card.topOffset}`}
                   style={{ zIndex }}
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseOver={() => setHoveredIndex(i)}
@@ -747,7 +762,7 @@ export function WorkPrinciplesSection() {
                     onMouseEnter={() => setHoveredIndex(i)}
                     onMouseOver={() => setHoveredIndex(i)}
                     onClick={() => setHoveredIndex(hoveredIndex === i ? null : i)}
-                    className="absolute top-0 left-0 w-[360px] sm:w-[390px] md:w-[420px] aspect-[901/631] cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                    className="absolute top-0 left-0 w-[270px] xs:w-[320px] sm:w-[390px] md:w-[420px] aspect-[901/631] cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.25,1,0.5,1)]"
                     style={{
                       transform: `translateY(${translateY}px) rotate(${rotation}deg) scale(${scale})`,
                       opacity,
@@ -784,28 +799,28 @@ export function WorkPrinciplesSection() {
                     />
 
                     {/* Paper Content: Numbered Circle, Title, Description */}
-                    <div className="relative z-4 h-full pt-8 sm:pt-9 pb-6 pr-8 pl-16 sm:pl-18 flex flex-col justify-start">
+                    <div className="relative z-4 h-full pt-6 xs:pt-8 sm:pt-9 pb-4 sm:pb-6 pr-5 sm:pr-8 pl-12 xs:pl-14 sm:pl-18 flex flex-col justify-start">
                       {/* Number in Hand-Drawn Circle SVG + Heading */}
-                      <div className="flex items-center gap-3 mb-3.5">
-                        <div className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center flex-shrink-0">
+                      <div className="flex items-center gap-2 xs:gap-3 mb-2 xs:mb-3.5">
+                        <div className="relative w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center flex-shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src="/assets/37C10FqTxPUKOJzhNldFD0Y7A.svg"
                             alt="Circle"
                             className="absolute inset-0 w-full h-full object-contain pointer-events-none"
                           />
-                          <span className="relative z-1 font-caveat font-bold text-lg sm:text-xl text-[#111111] leading-none">
+                          <span className="relative z-1 font-caveat font-bold text-base sm:text-xl text-[#111111] leading-none">
                             <TypewriterText text={card.num} preset="fast" />
                           </span>
                         </div>
 
-                        <h3 className="font-caveat font-bold text-xl sm:text-2xl text-[#111111] leading-snug tracking-wide">
+                        <h3 className="font-caveat font-bold text-lg sm:text-2xl text-[#111111] leading-snug tracking-wide">
                           <TypewriterText text={card.title} preset="heading" delayMs={100} />
                         </h3>
                       </div>
 
                       {/* Description Body Text */}
-                      <p className="font-sans text-xs sm:text-sm md:text-[14.5px] leading-relaxed text-[#1f1f1f] font-medium pr-2">
+                      <p className="font-sans text-[11px] xs:text-xs sm:text-sm md:text-[14.5px] leading-relaxed text-[#1f1f1f] font-medium pr-1 sm:pr-2">
                         <TypewriterText text={card.desc} preset="paragraph" delayMs={200} />
                       </p>
                     </div>
@@ -839,7 +854,7 @@ export function ExperienceSection() {
   ];
 
   return (
-    <section className="relative w-full mt-16 sm:mt-28 pt-24 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 md:px-14 bg-wire-bg select-none">
+    <section className="relative w-full mt-16 sm:mt-28 pt-24 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 md:px-14 bg-wire-bg select-none overflow-hidden">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         
         {/* Section Heading: "MY EXPERIENCE" */}
@@ -854,7 +869,7 @@ export function ExperienceSection() {
 
         {/* Notebook Page Container with Red Margin Line */}
         <div
-          className="relative w-full bg-[#ffffff] rounded-[18px] p-6 sm:p-10 md:p-12 border-2 border-[#111111] shadow-[0_16px_45px_rgba(0,0,0,0.10)]"
+          className="relative w-full bg-[#ffffff] rounded-[18px] p-4 sm:p-10 md:p-12 border-2 border-[#111111] shadow-[0_16px_45px_rgba(0,0,0,0.10)] overflow-hidden"
           style={{
             backgroundImage:
               "repeating-linear-gradient(transparent, transparent 31px, rgba(17,17,17,0.06) 31px, rgba(17,17,17,0.06) 32px)",
@@ -862,21 +877,21 @@ export function ExperienceSection() {
           }}
         >
           {/* Vertical Red Margin Line */}
-          <div className="absolute top-0 bottom-0 left-12 sm:left-16 md:left-20 w-[1.5px] bg-[#ef4444]/60 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 left-8 sm:left-16 md:left-20 w-[1.5px] bg-[#ef4444]/60 pointer-events-none" />
 
           {/* Experience List Items */}
-          <div className="relative pl-8 sm:pl-12 md:pl-16 flex flex-col gap-10 sm:gap-12">
+          <div className="relative pl-6 sm:pl-12 md:pl-16 flex flex-col gap-10 sm:gap-12">
             {experiences.map((exp, i) => (
               <div key={i} className="flex flex-col">
                 <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1.5">
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                     <span
-                      className="font-marker text-2xl sm:text-3xl text-[#111111] px-2 py-0.5 rounded-xs"
+                      className="font-marker text-lg sm:text-2xl md:text-3xl text-[#111111] px-2 py-0.5 rounded-xs"
                       style={{ backgroundColor: `${exp.highlight}90` }}
                     >
                       <TypewriterText text={exp.company} preset="heading" />
                     </span>
-                    <span className="font-hand font-bold text-lg sm:text-xl text-[#222222]">
+                    <span className="font-hand font-bold text-base sm:text-xl text-[#222222]">
                       <TypewriterText text={exp.role} preset="caption" />
                     </span>
                   </div>

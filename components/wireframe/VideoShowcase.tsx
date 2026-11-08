@@ -10,14 +10,14 @@ export function VideoShowcase() {
   return (
     <section className="relative w-full pt-16 sm:pt-24 pb-14 sm:pb-24 px-3 sm:px-6 md:px-12 flex flex-col items-center bg-wire-bg overflow-hidden select-none">
       {/* Heading & Subtitle Container matching reference layout */}
-      <div className="w-full max-w-5xl mb-4 sm:mb-6 flex flex-row items-center justify-between gap-3 sm:gap-4 px-1">
+      <div className="w-full max-w-5xl mb-4 sm:mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 px-1">
         {/* Main Heading: "Selected work — 2024 to 2026" with Typewriter Effect */}
-        <h2 className="font-caveat font-bold text-xl sm:text-3xl md:text-4xl text-[var(--wire-text-primary)] tracking-tight leading-tight transition-colors duration-300">
+        <h2 className="font-caveat font-bold text-lg sm:text-3xl md:text-4xl text-[var(--wire-text-primary)] tracking-tight leading-tight transition-colors duration-300">
           <TypewriterText text="Selected work — 2024 to 2026" delayMs={200} speedMs={30} />
         </h2>
 
         {/* Subtitle with curved arrow pointing left: "<- a little showcase of my work" */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 self-start sm:self-auto">
           {/* Hand-drawn pencil arrow pointing down-left toward video */}
           <svg
             viewBox="0 0 46 22"
@@ -54,6 +54,8 @@ export function VideoShowcase() {
                 <img
                   src="/video-poster.jpg"
                   alt="Video Showcase Preview"
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-contain bg-black select-none pointer-events-none"
                   draggable={false}
                 />

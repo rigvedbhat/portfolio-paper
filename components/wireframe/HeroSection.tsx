@@ -74,7 +74,35 @@ export function HeroSection() {
       }
     };
 
+    const onTouchMove = (e: TouchEvent) => {
+      if (!e.touches || e.touches.length === 0) return;
+      const touch = e.touches[0];
+      const state = physicsState.current;
+      const elem = pendulumRef.current;
+      if (!elem) return;
+
+      const rect = elem.getBoundingClientRect();
+      const cardCenterX = rect.left + rect.width / 2;
+      const cardCenterY = rect.top + rect.height * 0.65;
+
+      const dx = touch.clientX - cardCenterX;
+      const dy = touch.clientY - cardCenterY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      const vx = touch.clientX - (state.prevMouseX || touch.clientX);
+      state.prevMouseX = touch.clientX;
+      state.prevMouseY = touch.clientY;
+
+      const influenceRadius = 260;
+      if (dist < influenceRadius) {
+        const proximity = Math.pow(1 - dist / influenceRadius, 1.5);
+        const airImpulse = vx * proximity * 0.0006;
+        state.omega += airImpulse;
+      }
+    };
+
     window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
 
     // Physics constants for pendulum dangle & elastic vertical bounce
     const gravity = 0.0016;    // Restoring torque for pendulum swing
@@ -121,6 +149,7 @@ export function HeroSection() {
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchmove", onTouchMove);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -155,7 +184,7 @@ export function HeroSection() {
         }}
       >
         <h2
-          className="font-caveat font-normal text-[clamp(48px,9.5vw,140px)] text-[#ffe500] leading-[0.95] tracking-[-0.02em] whitespace-nowrap text-center select-none"
+          className="font-caveat font-normal text-[clamp(32px,8.5vw,140px)] text-[#ffe500] leading-[0.95] tracking-[-0.02em] whitespace-nowrap text-center select-none"
           style={{
             textShadow: "0 2px 20px rgba(255, 229, 0, 0.2)",
           }}
@@ -174,9 +203,11 @@ export function HeroSection() {
             willChange: "transform",
             transformStyle: "preserve-3d",
           }}
-          className="flex flex-col items-center pointer-events-auto cursor-grab active:cursor-grabbing"
+          className="flex flex-col items-center pointer-events-auto cursor-grab active:cursor-grabbing touch-pan-y"
           onMouseEnter={handleCardMouseEnter}
           onMouseLeave={handleCardMouseLeave}
+          onTouchStart={handleCardMouseEnter}
+          onTouchEnd={handleCardMouseLeave}
         >
           {/* Authentic Crimson Lanyard Ribbon (Extends well above screen edge so top cut is never visible) */}
           <div className="flex flex-col items-center">
@@ -203,7 +234,7 @@ export function HeroSection() {
 
           {/* Physical ID Card: Scaled to prevent overlapping headline text */}
           <div className="relative -mt-3.5 flex justify-center">
-            <div className="relative w-[215px] sm:w-[245px] md:w-[265px] bg-[#fbfbf9] rounded-[13px] p-2.5 sm:p-3 flex flex-col items-center border-2 border-[#111111] shadow-[0_16px_40px_rgba(0,0,0,0.14)] transition-shadow duration-300 hover:shadow-[0_22px_50px_rgba(0,0,0,0.18)]">
+            <div className="relative w-[210px] xs:w-[225px] sm:w-[245px] md:w-[265px] bg-[#fbfbf9] rounded-[13px] p-2.5 sm:p-3 flex flex-col items-center border-2 border-[#111111] shadow-[0_16px_40px_rgba(0,0,0,0.14)] transition-shadow duration-300 hover:shadow-[0_22px_50px_rgba(0,0,0,0.18)]">
               {/* Clean Geometrical Punch Hole Slot for the clasp hook */}
               <div className="w-8 sm:w-10 h-2 sm:h-2.5 bg-[#e2ded6] rounded-full border border-[#111111]/35 shadow-inner mb-2" />
 
@@ -219,7 +250,7 @@ export function HeroSection() {
 
               {/* Angled Yellow Sticky Note taped across top of photo */}
               <div
-                className="absolute top-2 left-7 sm:top-2.5 sm:left-9 w-26 sm:w-32 bg-[#ffe500] px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-xs shadow-md border border-[#111111]/30 z-30 sketch-wobble"
+                className="absolute top-2 left-6 xs:left-7 sm:top-2.5 sm:left-9 w-26 sm:w-32 bg-[#ffe500] px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-xs shadow-md border border-[#111111]/30 z-30 sketch-wobble"
                 style={{ transform: "rotate(-5deg)" }}
               >
                 {/* Clear scotch tape strip on top edge */}
@@ -254,7 +285,7 @@ export function HeroSection() {
       </div>
 
       {/* Spacer to push headline comfortably below the hanging card with ample breathing room */}
-      <div className="h-[450px] sm:h-[480px] md:h-[510px]" />
+      <div className="h-[390px] sm:h-[460px] md:h-[510px]" />
 
       {/* 3. Primary Heading Below Badge: "I'M RIGVED (RIG)" with Scroll-Triggered Typing Animation */}
       <div
@@ -264,7 +295,7 @@ export function HeroSection() {
           transition: "opacity 0.1s ease-out",
         }}
       >
-        <h1 className="font-marker text-4xl sm:text-6xl md:text-7xl lg:text-[88px] text-[var(--wire-text-primary)] leading-[0.95] tracking-tight uppercase select-none transition-colors duration-300">
+        <h1 className="font-marker text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-[88px] text-[var(--wire-text-primary)] leading-[0.95] tracking-tight uppercase select-none transition-colors duration-300">
           <TypewriterText text="I'M RIGVED (RIG)" delayMs={300} speedMs={50} />
         </h1>
 

@@ -48,7 +48,7 @@ const featuredProjects: ProjectCardData[] = [
 
 export function FeaturedProjects() {
   return (
-    <section className="relative w-full py-12 sm:py-20 px-4 sm:px-8 md:px-14 bg-wire-bg select-none">
+    <section className="relative w-full py-12 sm:py-20 px-4 sm:px-8 md:px-14 bg-wire-bg select-none overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {/* Asymmetric Staggered 2-Column Grid (Exactly 4 Projects with Authentic Paintbrush Reveal) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-14 gap-y-16 sm:gap-y-24 items-start">

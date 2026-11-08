@@ -146,7 +146,7 @@ html.theme-transition *::after {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: clip;
+    overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
   }
@@ -155,7 +155,7 @@ html.theme-transition *::after {
     background-color: var(--wire-bg);
     color: var(--wire-black);
     min-height: 100vh;
-    overflow-x: clip;
+    overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -164,6 +164,15 @@ html.theme-transition *::after {
   ::selection {
     background-color: #ffe500;
     color: #111111;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

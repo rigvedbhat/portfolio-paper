@@ -74,14 +74,14 @@ const allProjects: ProjectCardData[] = [
 
 export function PaintbrushGallery() {
   return (
-    <section className="relative w-full pt-28 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 md:px-14 bg-wire-bg select-none">
+    <section className="relative w-full pt-24 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 md:px-14 bg-wire-bg select-none overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {/* Works Header matching reference: "Works" large heading */}
-        <div className="mb-14 sm:mb-20 flex flex-col items-start">
-          <p className="font-caveat font-bold text-xl sm:text-2xl text-wire-muted tracking-wide mb-1">
+        <div className="mb-10 sm:mb-20 flex flex-col items-start">
+          <p className="font-caveat font-bold text-lg sm:text-2xl text-wire-muted tracking-wide mb-1">
             <TypewriterText text="Selected work — 2024 to 2026" preset="caption" />
           </p>
-          <h1 className="font-marker text-6xl sm:text-8xl md:text-9xl text-wire-black leading-[0.85] tracking-tight uppercase">
+          <h1 className="font-marker text-5xl sm:text-8xl md:text-9xl text-wire-black leading-[0.85] tracking-tight uppercase">
             <TypewriterText text="Works" preset="heading" delayMs={100} speedMs={60} />
           </h1>
         </div>

@@ -649,7 +649,15 @@ html.dark #as-ytp:hover .as-ytp-play,html.dark #as-ytp:focus-within .as-ytp-play
 #as-ytp.is-on .as-ytp-pause-ico{opacity:1;transform:scale(1)}
 #as-ytp:not(.is-on) .as-ytp-play-ico{opacity:1;transform:translateX(1px) scale(1)}
 @keyframes as-ytp-spin{to{transform:rotate(360deg)}}
-@media (max-width:480px){#as-ytp.pos-bl{left:16px;bottom:16px;width:min(292px,calc(100% - 32px))}#as-ytp.pos-br{right:16px;bottom:16px;width:min(292px,calc(100% - 32px))}}
+@media (max-width:480px){
+  #as-ytp{width:min(292px,calc(100% - 24px))}
+  #as-ytp.pos-bl{left:12px;bottom:12px}
+  #as-ytp.pos-br{right:12px;bottom:12px}
+  #as-ytp .as-ytp-bar{height:44px;padding:0 6px 0 68px}
+  #as-ytp .as-ytp-disc{width:60px;height:60px;top:-8px;left:4px}
+  #as-ytp .as-ytp-title{font-size:12px}
+  #as-ytp .as-ytp-sub{font-size:10px}
+}
 @media (prefers-reduced-motion:reduce){#as-ytp .as-ytp-art{animation:none!important}#as-ytp .as-ytp-bar,#as-ytp .as-ytp-body,#as-ytp .as-ytp-disc,#as-ytp .as-ytp-play svg,#as-ytp .as-ytp-mute svg{transition:none}}
         `,
       }} />

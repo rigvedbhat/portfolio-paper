@@ -43,6 +43,8 @@ next-env.d.ts
 comparison-screenshots/
 verification-screenshots/
 reference-screenshots/
+audit-screenshots/
+audit-results/
 .tmp_chrome_verify_scrapbook/
 public/screenshots/
 public/test-*.html

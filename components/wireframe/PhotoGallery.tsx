@@ -119,6 +119,8 @@ export function PhotoGallery() {
                   <img
                     src={currentPhoto.src}
                     alt="Photograph"
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none"
                     draggable={false}
                   />
@@ -146,7 +148,7 @@ export function PhotoGallery() {
                 <button
                   type="button"
                   onClick={handlePrev}
-                  className="absolute left-2 text-[#cccccc] hover:text-white p-2 text-base sm:text-lg transition-transform active:scale-90"
+                  className="absolute left-1 xs:left-2 text-[#cccccc] hover:text-white p-2.5 min-w-[36px] min-h-[36px] flex items-center justify-center text-base sm:text-lg transition-transform active:scale-90"
                   aria-label="Previous photo"
                 >
                   ◀
@@ -166,7 +168,7 @@ export function PhotoGallery() {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="absolute right-2 text-[#cccccc] hover:text-white p-2 text-base sm:text-lg transition-transform active:scale-90"
+                  className="absolute right-1 xs:right-2 text-[#cccccc] hover:text-white p-2.5 min-w-[36px] min-h-[36px] flex items-center justify-center text-base sm:text-lg transition-transform active:scale-90"
                   aria-label="Next photo"
                 >
                   ▶
@@ -178,7 +180,7 @@ export function PhotoGallery() {
                 type="button"
                 onClick={handleRemove}
                 title="Send current image to end of gallery"
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-b from-[#48a942] to-[#2e7d32] border-2 border-[#1b5e20] shadow-md flex items-center justify-center text-white text-base hover:brightness-110 active:scale-90 transition-transform"
+                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-b from-[#48a942] to-[#2e7d32] border-2 border-[#1b5e20] shadow-md flex items-center justify-center text-white text-base hover:brightness-110 active:scale-90 transition-transform"
                 aria-label="Send image to end"
               >
                 🗑

@@ -51,7 +51,7 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
       title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-      className="group relative inline-flex items-center justify-center w-[36px] sm:w-[44px] h-[34px] sm:h-[44px] rounded-full select-none transition-transform duration-200 hover:scale-110 active:scale-95 cursor-pointer ml-1 sm:ml-2"
+      className="group relative inline-flex items-center justify-center w-[32px] sm:w-[44px] h-[32px] sm:h-[44px] rounded-full select-none transition-transform duration-200 hover:scale-110 active:scale-95 cursor-pointer ml-0.5 sm:ml-2 flex-shrink-0"
     >
       {/* Hand-drawn oval/circle border matching sketchbook aesthetic */}
       <svg

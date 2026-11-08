@@ -44,13 +44,13 @@ export function StandaloneContact() {
           {/* LEFT COLUMN: Massive "Say hello" + Yellow Sticky Note + Curved Arrow */}
           <div className="lg:col-span-5 flex flex-col items-start pt-2 sm:pt-6">
             {/* Massive Heading */}
-            <h1 className="font-marker text-6xl sm:text-7xl md:text-8xl lg:text-[96px] text-wire-black leading-[0.9] tracking-tight uppercase select-none mb-6 sm:mb-8">
+            <h1 className="font-marker text-5xl sm:text-7xl md:text-8xl lg:text-[96px] text-wire-black leading-[0.9] tracking-tight uppercase select-none mb-6 sm:mb-8">
               <TypewriterText text="Say hello" preset="heading" />
             </h1>
 
             {/* Yellow Sticky Note Banner: "drop me a line, I usually reply within a day" */}
             <div
-              className="relative w-full max-w-[360px] bg-[#ffe500] px-4 py-3 rounded-sm shadow-md border border-[#111111]/30 flex items-center gap-3 select-none sketch-wobble mb-6"
+              className="relative w-full max-w-[340px] bg-[#ffe500] px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-sm shadow-md border border-[#111111]/30 flex items-center gap-2.5 sm:gap-3 select-none sketch-wobble mb-6"
               style={{ transform: "rotate(-1.5deg)" }}
             >
               {/* Clear scotch tape strip */}
@@ -101,7 +101,7 @@ export function StandaloneContact() {
           {/* RIGHT COLUMN: Contact with me! Form Card */}
           <div className="lg:col-span-7 w-full flex justify-center lg:justify-end">
             <div
-              className="relative w-full max-w-xl rounded-[16px] p-6 sm:p-10 shadow-[0_16px_45px_rgba(0,0,0,0.12)] select-none"
+              className="relative w-full max-w-xl rounded-[16px] p-5 sm:p-10 shadow-[0_16px_45px_rgba(0,0,0,0.12)] select-none"
               style={{
                 backgroundColor: "var(--wire-form-card-bg)",
                 border: "3px double var(--wire-form-card-border)",
